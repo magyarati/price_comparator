@@ -1,0 +1,39 @@
+plugins {
+    id 'base'
+    id 'org.springframework.boot' version '2.7.4' apply false
+    id 'io.spring.dependency-management' version '1.0.14.RELEASE' apply false
+}
+
+tasks.wrapper {
+    gradleVersion = '8.12'
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+subprojects {
+    group = 'org.example'
+    version = '1.0.0'
+}
+
+tasks.register("buildFrontend") {
+    group = "build"
+    description = "Installs and builds the React frontend"
+    doLast {
+        exec {
+            workingDir "${projectDir}/frontend"
+            commandLine "npm", "install"
+        }
+        exec {
+            workingDir "${projectDir}/frontend"
+            commandLine "npm", "run", "build"
+        }
+        copy {
+            from "${projectDir}/frontend/build"
+            into "${projectDir}/backend/src/main/resources/static"
+        }
+    }
+}
+
+// Make the existing root 'build' task depend on frontend and backend
+tasks.named("build") {
+    dependsOn("buildFrontend", ":backend:build")
+}
