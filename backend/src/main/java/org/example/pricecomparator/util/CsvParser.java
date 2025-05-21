@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -37,7 +38,7 @@ public class CsvParser {
     public static List<Product> parsePriceCsv(String path, String store)
             throws IOException, CsvValidationException {
         List<Product> list = new ArrayList<>();
-        try (CSVReader r = new CSVReaderBuilder(new FileReader(path))
+        try (CSVReader r = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))
                 .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
                 .build()) {
             String[] row;
@@ -61,7 +62,7 @@ public class CsvParser {
     public static List<DiscountRecord> parseDiscountCsv(String path)
             throws IOException, CsvValidationException {
         List<DiscountRecord> list = new ArrayList<>();
-        try (CSVReader r = new CSVReaderBuilder(new FileReader(path))
+        try (CSVReader r = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))
                 .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
                 .build()) {
             r.readNext(); // skip header
