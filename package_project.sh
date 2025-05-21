@@ -11,6 +11,7 @@ set -e
 
 # Exclude patterns
 excludes=(
+  "price_comparator*.zip"
   "*/node_modules/*"
   "*/build/*"
   "*/.gradle/*"

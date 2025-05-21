@@ -1,9 +1,9 @@
 package org.example.pricecomparator.controller;
 
-import org.example.pricecomparator.model.PriceEntry;
 import org.example.pricecomparator.service.PriceHistoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.example.pricecomparator.model.Product;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ public class PriceHistoryController {
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<List<PriceEntry>> getPriceHistory(@PathVariable String productId) {
-        List<PriceEntry> history = priceHistoryService.getPriceHistoryForProduct(productId);
+    public ResponseEntity<List<Product>> getPriceHistory(@PathVariable String productId) {
+        List<Product> history = priceHistoryService.getPriceHistoryForProduct(productId);
         if (history.isEmpty()) {
             return ResponseEntity.noContent().build();
         }

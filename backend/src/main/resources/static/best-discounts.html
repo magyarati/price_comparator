@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Best Discounts</title>
+</head>
+<body>
+<button onclick="window.location.href='index.html'" style="margin-bottom: 20px;">Home</button>
+<h1>Top Discounts</h1>
+<button onclick="loadDiscounts()">Load Best Discounts</button>
+<table border="1" id="discountsTable">
+    <thead>
+    <tr>
+        <th>Store</th>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Brand</th>
+        <th>Original Price</th>
+        <th>Discounted Price</th>
+        <th>Discount %</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<script>
+    function loadDiscounts() {
+        fetch('/api/discounts/best')
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('discountsTable').getElementsByTagName('tbody')[0];
+                tbody.innerHTML = '';
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.store}</td>
+                        <td>${row.productName}</td>
+                        <td>${row.productCategory}</td>
+                        <td>${row.brand}</td>
+                        <td>${row.originalPrice}</td>
+                        <td>${row.discountedPrice}</td>
+                        <td>${row.discountPercent}%</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            });
+    }
+</script>
+</body>
+</html>

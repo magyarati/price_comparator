@@ -1,8 +1,8 @@
 package org.example.pricecomparator.service;
 
-import org.example.pricecomparator.model.PriceEntry;
 import org.example.pricecomparator.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.example.pricecomparator.model.Product;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class PriceHistoryService {
         this.productRepository = productRepository;
     }
 
-    public List<PriceEntry> getPriceHistoryForProduct(String productId) {
+    public List<Product> getPriceHistoryForProduct(String productId) {
         return productRepository.getPriceHistory(productId);
     }
 }

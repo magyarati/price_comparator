@@ -1,13 +1,26 @@
 package org.example.pricecomparator.model;
 
-import java.time.LocalDate;
-
 public class Product {
-    private String store, name, category, brand, unit, currency;
-    private double grammage, price, discount;
-    private LocalDate validFrom, validUntil;
+    private String store;
+    private String name;
+    private String category;
+    private String brand;
+    private double grammage;
+    private String unit;
+    private double price;
+    private String currency;
+    private double discount = 0.0;
+    private java.time.LocalDate validFrom;
+    private java.time.LocalDate validUntil;
 
-    // getters and setters
+    public double getDiscount() { return discount; }
+    public void setDiscount(double discount) { this.discount = discount; }
+
+    public java.time.LocalDate getValidFrom() { return validFrom; }
+    public void setValidFrom(java.time.LocalDate validFrom) { this.validFrom = validFrom; }
+
+    public java.time.LocalDate getValidUntil() { return validUntil; }
+    public void setValidUntil(java.time.LocalDate validUntil) { this.validUntil = validUntil; }
 
     public String getStore() { return store; }
     public void setStore(String store) { this.store = store; }
@@ -33,12 +46,6 @@ public class Product {
     public String getCurrency() { return currency; }
     public void setCurrency(String currency) { this.currency = currency; }
 
-    public double getDiscount() { return discount; }
-    public void setDiscount(double discount) { this.discount = discount; }
-
-    public LocalDate getValidFrom() { return validFrom; }
-    public void setValidFrom(LocalDate validFrom) { this.validFrom = validFrom; }
-
-    public LocalDate getValidUntil() { return validUntil; }
-    public void setValidUntil(LocalDate validUntil) { this.validUntil = validUntil; }
+    public String getId() {return name;
+    }
 }
