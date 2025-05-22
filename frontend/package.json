@@ -2,20 +2,25 @@
   "name": "price-comparator-frontend",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-  "start": "react-scripts start",
-  "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-},
   "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "axios": "^1.0.0",
-    "recharts": "^2.1.12"
+    "@craco/craco": "^7.1.0",
+    "axios": "^1.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "recharts": "^2.7.2"
   },
-  "devDependencies": {
-    "react-scripts": "^5.0.1"
+  "scripts": {
+    "start": "craco start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

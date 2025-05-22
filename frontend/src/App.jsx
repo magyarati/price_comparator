@@ -12,7 +12,6 @@ export default function App() {
   const [selectedName, setSelectedName] = useState('');
   const [dateFilter, setDateFilter] = useState('');
   const [basketResult, setBasketResult] = useState(null);
-  const [historyProduct, setHistoryProduct] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -24,6 +23,11 @@ export default function App() {
       .then(res => setProducts(res.data))
       .catch(console.error);
   }, [store, dateFilter]);
+
+    // Handler for History button - redirects to history.html with productId
+    function handleShowHistory(product) {
+      window.location.href = `/history.html?name=${encodeURIComponent(product.name)}&store=${encodeURIComponent(product.store)}`;
+    }
 
   const productNames = Array.from(new Set(products.map(p => p.name))).sort();
   const filtered = products.filter(p => !selectedName || p.name === selectedName);
@@ -48,11 +52,8 @@ export default function App() {
         productNames={productNames}
       />
 
-      <ProductList products={filtered} onShowHistory={setHistoryProduct} />
+      <ProductList products={filtered} onShowHistory={handleShowHistory} />
 
-      {historyProduct && (
-        <PriceHistoryChart product={historyProduct} />
-      )}
     </div>
   );
 }
