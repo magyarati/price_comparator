@@ -1,0 +1,13 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-03-13;2025-03-19;10
+P047;piper negru măcinat;Fuchs;50.0;g;condimente;2025-03-13;2025-03-19;13
+P029;ulei floarea-soarelui;Floriol;1.0;l;alimente de bază;2025-03-13;2025-03-19;20
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-03-13;2025-03-19;5
+P022;zahăr tos;Mărgăritar;1.0;kg;alimente de bază;2025-03-13;2025-03-19;23
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-03-13;2025-03-19;13
+P012;pâine albă;K-Classic;500.0;g;panificație;2025-03-13;2025-03-19;15
+P050;vin alb demisec;Recas;0.75;l;băuturi;2025-03-13;2025-03-19;15
+P061;suc portocale;Santorini;1.0;l;băuturi;2025-03-13;2025-03-19;8
+P025;apă plată;Dorna;2.0;l;băuturi;2025-03-13;2025-03-19;13
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-03-13;2025-03-19;11
+P009;brânză telemea;Hochland;0.3;kg;lactate;2025-03-13;2025-03-19;9

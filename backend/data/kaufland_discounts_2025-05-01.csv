@@ -1,13 +1,13 @@
 product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
-P003;iaurt grecesc;Olympus;0.4;kg;lactate;2025-05-01;2025-05-07;10
-P009;brânză telemea;Hochland;0.3;kg;lactate;2025-05-01;2025-05-07;10
-P018;piept pui;Agricola;1;kg;carne;2025-05-02;2025-05-08;12
-P020;spaghetti nr.5;Barilla;500;g;paste făinoase;2025-05-03;2025-05-09;18
-P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-05-04;2025-05-10;10
-P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-05-01;2025-05-07;22
-P041;șampon păr gras;Elseve;400;ml;îngrijire personală;2025-05-02;2025-05-08;12
-P050;vin alb demisec;Recas;0.75;l;băuturi;2025-05-03;2025-05-09;8
-P053;ciocolată neagră 70%;Heidi;100;g;gustări;2025-05-04;2025-05-10;15
-P056;cartofi albi;Generic;1;kg;legume și fructe;2025-05-01;2025-05-07;5
-P060;suc portocale;Cappy;1;l;băuturi;2025-05-02;2025-05-08;7
-P062;cașcaval;Delaco;0.25;kg;lactate;2025-05-03;2025-05-09;10
+P009;brânză telemea;Hochland;0.3;kg;lactate;2025-05-01;2025-05-07;20
+P018;piept pui;Agricola;1.0;kg;carne;2025-05-01;2025-05-07;19
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-05-01;2025-05-07;5
+P003;iaurt grecesc;Olympus;0.4;kg;lactate;2025-05-01;2025-05-07;25
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-05-01;2025-05-07;9
+P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-05-01;2025-05-07;24
+P044;hârtie igienică 3 straturi;Pufina;10.0;role;produse de menaj;2025-05-01;2025-05-07;27
+P012;pâine albă;K-Classic;500.0;g;panificație;2025-05-01;2025-05-07;18
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-05-01;2025-05-07;14
+P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-05-01;2025-05-07;14
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-05-01;2025-05-07;11
+P006;ouă mărimea M;Ferma Veche;10.0;buc;ouă;2025-05-01;2025-05-07;26

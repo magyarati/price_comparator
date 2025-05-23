@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-03-20;2025-03-25;9
+P037;detergent lichid;Persil;2.5;l;produse de menaj;2025-03-20;2025-03-25;12
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-03-20;2025-03-25;9
+P014;roșii cherry;Lidl;250.0;g;legume și fructe;2025-03-20;2025-03-25;22
+P043;hârtie igienică 3 straturi;Zewa;10.0;role;produse de menaj;2025-03-20;2025-03-25;26
+P026;banane;Lidl;1.0;kg;legume și fructe;2025-03-20;2025-03-25;8
+P046;piper negru măcinat;Kotanyi;50.0;g;condimente;2025-03-20;2025-03-25;12
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-03-20;2025-03-25;24
+P031;biscuiți cu unt;Deluxe;0.2;kg;gustări;2025-03-20;2025-03-25;14
+P028;ulei floarea-soarelui;Bunica;1.0;l;alimente de bază;2025-03-20;2025-03-25;14
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-03-20;2025-03-25;27

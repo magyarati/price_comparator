@@ -1,13 +1,12 @@
 product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
-P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-05-24;2025-05-28;27
-P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-05-24;2025-05-28;9
-P063;cașcaval;K-Classic;0.25;kg;lactate;2025-05-23;2025-05-26;14
-P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-05-22;2025-05-28;30
-P047;piper negru măcinat;Fuchs;50.0;g;condimente;2025-05-22;2025-05-26;15
-P056;cartofi albi;Generic;1.0;kg;legume și fructe;2025-05-22;2025-05-25;6
-P018;piept pui;Agricola;1.0;kg;carne;2025-05-22;2025-05-25;19
-P061;suc portocale;Santorini;1.0;l;băuturi;2025-05-22;2025-05-28;7
-P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-05-25;2025-05-28;14
-P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-05-22;2025-05-25;9
-P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-05-22;2025-05-28;12
-P059;morcovi;Generic;0.5;kg;legume și fructe;2025-05-23;2025-05-26;5
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-05-22;2025-05-27;29
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-05-27;2025-05-28;10
+P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-05-22;2025-05-27;11
+P061;suc portocale;Santorini;1.0;l;băuturi;2025-05-22;2025-05-27;17
+P022;zahăr tos;Mărgăritar;1.0;kg;alimente de bază;2025-05-27;2025-05-28;20
+P012;pâine albă;K-Classic;500.0;g;panificație;2025-05-22;2025-05-27;6
+P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-05-22;2025-05-27;14
+P009;brânză telemea;Hochland;0.3;kg;lactate;2025-05-22;2025-05-27;7
+P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-05-26;2025-05-27;20
+P044;hârtie igienică 3 straturi;Pufina;10.0;role;produse de menaj;2025-05-22;2025-05-27;18
+P027;banane;Generic;1.0;kg;legume și fructe;2025-05-28;2025-05-28;11

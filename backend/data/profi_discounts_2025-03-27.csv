@@ -1,0 +1,13 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P033;biscuiți cu unt;RoStar;0.2;kg;gustări;2025-03-27;2025-03-29;10
+P045;hârtie igienică 3 straturi;Motto;10.0;role;produse de menaj;2025-03-27;2025-03-29;30
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-03-27;2025-03-29;9
+P069;pastă de dinți;Colgate;100.0;ml;îngrijire personală;2025-03-27;2025-03-29;14
+P036;cafea măcinată;Tchibo;0.25;kg;cafea;2025-03-27;2025-03-29;5
+P051;vin alb demisec;Cotnari;0.75;l;băuturi;2025-03-27;2025-03-29;5
+P004;iaurt grecesc;Proxi;0.4;kg;lactate;2025-03-27;2025-03-29;14
+P067;orez bob lung;Deroni;1.0;kg;alimente de bază;2025-03-27;2025-03-29;22
+P019;piept pui;Avicola;1.0;kg;carne;2025-03-27;2025-03-29;24
+P027;banane;Generic;1.0;kg;legume și fructe;2025-03-27;2025-03-29;19
+P030;ulei floarea-soarelui;Spornic;1.0;l;alimente de bază;2025-03-27;2025-03-29;17
+P070;bere blondă;Ursus;0.5;l;băuturi;2025-03-27;2025-03-29;24

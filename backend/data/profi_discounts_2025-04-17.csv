@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P017;piept pui;Lidl;1.0;kg;carne;2025-04-17;2025-04-19;8
+P011;pâine albă;Lidl;500.0;g;panificație;2025-04-17;2025-04-19;22
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-04-17;2025-04-19;12
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-04-17;2025-04-19;19
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-04-17;2025-04-19;23
+P028;ulei floarea-soarelui;Bunica;1.0;l;alimente de bază;2025-04-17;2025-04-19;9
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-04-17;2025-04-19;15
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-04-17;2025-04-19;9
+P037;detergent lichid;Persil;2.5;l;produse de menaj;2025-04-17;2025-04-19;20
+P043;hârtie igienică 3 straturi;Zewa;10.0;role;produse de menaj;2025-04-17;2025-04-19;22

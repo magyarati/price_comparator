@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P066;cremă de brânză;Almette;0.15;kg;lactate;2025-01-16;2025-01-20;30
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-01-16;2025-01-20;17
+P011;pâine albă;Lidl;500.0;g;panificație;2025-01-16;2025-01-20;13
+P064;mălai extra;Pambac;1.0;kg;alimente de bază;2025-01-16;2025-01-20;30
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-01-16;2025-01-20;26
+P031;biscuiți cu unt;Deluxe;0.2;kg;gustări;2025-01-16;2025-01-20;12
+P037;detergent lichid;Persil;2.5;l;produse de menaj;2025-01-16;2025-01-20;18
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-01-16;2025-01-20;26
+P055;cartofi albi;Lidl;1.0;kg;legume și fructe;2025-01-16;2025-01-20;11
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-01-16;2025-01-20;18
+P057;ceapă galbenă;Lidl;1.0;kg;legume și fructe;2025-01-16;2025-01-20;28

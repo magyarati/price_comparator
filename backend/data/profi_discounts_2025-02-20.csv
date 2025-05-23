@@ -1,0 +1,13 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-02-20;2025-02-23;14
+P017;piept pui;Lidl;1.0;kg;carne;2025-02-20;2025-02-23;22
+P011;pâine albă;Lidl;500.0;g;panificație;2025-02-20;2025-02-23;14
+P052;ciocolată neagră 70%;Fin Carre;100.0;g;gustări;2025-02-20;2025-02-23;14
+P026;banane;Lidl;1.0;kg;legume și fructe;2025-02-20;2025-02-23;24
+P034;cafea măcinată;Davidoff;0.25;kg;cafea;2025-02-20;2025-02-23;11
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-02-20;2025-02-23;26
+P037;detergent lichid;Persil;2.5;l;produse de menaj;2025-02-20;2025-02-23;5
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-02-20;2025-02-23;16
+P028;ulei floarea-soarelui;Bunica;1.0;l;alimente de bază;2025-02-20;2025-02-23;14
+P031;biscuiți cu unt;Deluxe;0.2;kg;gustări;2025-02-20;2025-02-23;28
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-02-20;2025-02-23;14

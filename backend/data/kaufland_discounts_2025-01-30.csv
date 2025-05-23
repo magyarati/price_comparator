@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-01-30;2025-02-05;27
+P006;ouă mărimea M;Ferma Veche;10.0;buc;ouă;2025-01-30;2025-02-05;5
+P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-01-30;2025-02-05;20
+P009;brânză telemea;Hochland;0.3;kg;lactate;2025-01-30;2025-02-05;26
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-01-30;2025-02-05;17
+P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-01-30;2025-02-05;15
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-01-30;2025-02-05;5
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-01-30;2025-02-05;26
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-01-30;2025-02-05;9
+P027;banane;Generic;1.0;kg;legume și fructe;2025-01-30;2025-02-05;11
+P018;piept pui;Agricola;1.0;kg;carne;2025-01-30;2025-02-05;10

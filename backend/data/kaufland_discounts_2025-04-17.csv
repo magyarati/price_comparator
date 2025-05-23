@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P009;brânză telemea;Hochland;0.3;kg;lactate;2025-04-17;2025-04-21;11
+P062;cașcaval;Delaco;0.25;kg;lactate;2025-04-17;2025-04-21;26
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-04-17;2025-04-21;10
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-04-17;2025-04-21;23
+P060;suc portocale;Cappy;1.0;l;băuturi;2025-04-17;2025-04-21;14
+P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-04-17;2025-04-21;10
+P025;apă plată;Dorna;2.0;l;băuturi;2025-04-17;2025-04-21;17
+P047;piper negru măcinat;Fuchs;50.0;g;condimente;2025-04-17;2025-04-21;22
+P029;ulei floarea-soarelui;Floriol;1.0;l;alimente de bază;2025-04-17;2025-04-21;10
+P050;vin alb demisec;Recas;0.75;l;băuturi;2025-04-17;2025-04-21;11
+P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-04-17;2025-04-21;26

@@ -42,7 +42,8 @@ export default function PriceHistoryChart({ product }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="price" dot={{ r: 3 }} />
+            <Line type="monotone" dataKey="price" dot={{ r: 3 }} name="Discounted Price" />
+            <Line type="monotone" dataKey="originalPrice" strokeDasharray="5 5" name="Original Price" />
           </LineChart>
         </ResponsiveContainer>
       )}

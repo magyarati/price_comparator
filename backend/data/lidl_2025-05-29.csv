@@ -1,26 +1,21 @@
 product_id;product_name;product_category;brand;package_quantity;package_unit;price;currency
-P001;lapte zuzu;lactate;Zuzu;1.0;l;10.24;RON
-P002;iaurt grecesc;lactate;Lidl;0.4;kg;12.11;RON
-P005;ouă mărimea M;ouă;Lidl;10.0;buc;13.68;RON
-P008;brânză telemea;lactate;Pilos;0.3;kg;13.46;RON
-P011;pâine albă;panificație;Lidl;500.0;g;3.55;RON
-P014;roșii cherry;legume și fructe;Lidl;250.0;g;7.2;RON
-P017;piept pui;carne;Lidl;1.0;kg;30.16;RON
-P020;spaghetti nr.5;paste făinoase;Barilla;500.0;g;5.96;RON
-P021;zahăr tos;alimente de bază;Lidl;1.0;kg;4.48;RON
-P024;apă plată;băuturi;Aqua Carpatica;2.0;l;5.33;RON
-P026;banane;legume și fructe;Lidl;1.0;kg;6.26;RON
-P028;ulei floarea-soarelui;alimente de bază;Bunica;1.0;l;9.71;RON
-P031;biscuiți cu unt;gustări;Deluxe;0.2;kg;7.3;RON
-P034;cafea măcinată;cafea;Davidoff;0.25;kg;23.59;RON
-P037;detergent lichid;produse de menaj;Persil;2.5;l;51.67;RON
-P040;șampon păr gras;îngrijire personală;Head & Shoulders;400.0;ml;18.68;RON
-P043;hârtie igienică 3 straturi;produse de menaj;Zewa;10.0;role;19.62;RON
-P046;piper negru măcinat;condimente;Kotanyi;50.0;g;6.31;RON
-P049;vin alb demisec;băuturi;Jidvei;0.75;l;24.33;RON
-P052;ciocolată neagră 70%;gustări;Fin Carre;100.0;g;3.97;RON
-P055;cartofi albi;legume și fructe;Lidl;1.0;kg;3.13;RON
-P057;ceapă galbenă;legume și fructe;Lidl;1.0;kg;2.92;RON
-P064;mălai extra;alimente de bază;Pambac;1.0;kg;5.74;RON
-P065;file somon;pește;Lidl;0.2;kg;26.1;RON
-P066;cremă de brânză;lactate;Almette;0.15;kg;8.87;RON
+P001;lapte zuzu;lactate;Zuzu;1.0;l;10.0;RON
+P002;iaurt grecesc;lactate;Lidl;0.4;kg;11.62;RON
+P005;ouă mărimea M;ouă;Lidl;10.0;buc;13.33;RON
+P008;brânză telemea;lactate;Pilos;0.3;kg;12.93;RON
+P011;pâine albă;panificație;Lidl;500.0;g;3.54;RON
+P014;roșii cherry;legume și fructe;Lidl;250.0;g;6.87;RON
+P017;piept pui;carne;Lidl;1.0;kg;28.78;RON
+P020;spaghetti nr.5;paste făinoase;Barilla;500.0;g;5.86;RON
+P021;zahăr tos;alimente de bază;Lidl;1.0;kg;4.44;RON
+P024;apă plată;băuturi;Aqua Carpatica;2.0;l;5.25;RON
+P026;banane;legume și fructe;Lidl;1.0;kg;6.16;RON
+P028;ulei floarea-soarelui;alimente de bază;Bunica;1.0;l;9.29;RON
+P031;biscuiți cu unt;gustări;Deluxe;0.2;kg;7.17;RON
+P034;cafea măcinată;cafea;Davidoff;0.25;kg;22.62;RON
+P037;detergent lichid;produse de menaj;Persil;2.5;l;50.4;RON
+P040;șampon păr gras;îngrijire personală;Head & Shoulders;400.0;ml;17.98;RON
+P043;hârtie igienică 3 straturi;produse de menaj;Zewa;10.0;role;19.09;RON
+P046;piper negru măcinat;condimente;Kotanyi;50.0;g;6.06;RON
+P049;vin alb demisec;băuturi;Jidvei;0.75;l;23.74;RON
+P052;ciocolată neagră 70%;gustări;Fin Carre;100.0;g;3.94;RON

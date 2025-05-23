@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P050;vin alb demisec;Recas;0.75;l;băuturi;2025-01-16;2025-01-21;5
+P025;apă plată;Dorna;2.0;l;băuturi;2025-01-16;2025-01-21;23
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-01-16;2025-01-21;9
+P056;cartofi albi;Generic;1.0;kg;legume și fructe;2025-01-16;2025-01-21;6
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-01-16;2025-01-21;26
+P027;banane;Generic;1.0;kg;legume și fructe;2025-01-16;2025-01-21;17
+P044;hârtie igienică 3 straturi;Pufina;10.0;role;produse de menaj;2025-01-16;2025-01-21;30
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-01-16;2025-01-21;5
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-01-16;2025-01-21;9
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-01-16;2025-01-21;26

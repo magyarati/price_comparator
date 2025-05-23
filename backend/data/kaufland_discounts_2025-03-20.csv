@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-03-20;2025-03-23;30
+P056;cartofi albi;Generic;1.0;kg;legume și fructe;2025-03-20;2025-03-23;21
+P018;piept pui;Agricola;1.0;kg;carne;2025-03-20;2025-03-23;17
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-03-20;2025-03-23;12
+P003;iaurt grecesc;Olympus;0.4;kg;lactate;2025-03-20;2025-03-23;27
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-03-20;2025-03-23;28
+P062;cașcaval;Delaco;0.25;kg;lactate;2025-03-20;2025-03-23;15
+P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-03-20;2025-03-23;14
+P047;piper negru măcinat;Fuchs;50.0;g;condimente;2025-03-20;2025-03-23;24
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-03-20;2025-03-23;6
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-03-20;2025-03-23;5

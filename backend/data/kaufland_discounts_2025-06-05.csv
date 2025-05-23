@@ -1,12 +1,11 @@
 product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
-P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-06-05;2025-06-09;14
-P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-06-05;2025-06-11;22
-P050;vin alb demisec;Recas;0.75;l;băuturi;2025-06-06;2025-06-10;21
-P061;suc portocale;Santorini;1.0;l;băuturi;2025-06-06;2025-06-10;8
-P063;cașcaval;K-Classic;0.25;kg;lactate;2025-06-05;2025-06-11;19
-P018;piept pui;Agricola;1.0;kg;carne;2025-06-07;2025-06-11;8
-P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-06-05;2025-06-11;12
-P059;morcovi;Generic;0.5;kg;legume și fructe;2025-06-05;2025-06-09;15
-P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-06-05;2025-06-11;22
-P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-06-05;2025-06-10;13
-P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-06-06;2025-06-11;20
+P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-06-05;2025-06-07;17
+P056;cartofi albi;Generic;1.0;kg;legume și fructe;2025-06-05;2025-06-07;16
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-06-05;2025-06-07;24
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-06-05;2025-06-07;14
+P018;piept pui;Agricola;1.0;kg;carne;2025-06-05;2025-06-07;24
+P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-06-05;2025-06-07;12
+P061;suc portocale;Santorini;1.0;l;băuturi;2025-06-05;2025-06-07;15
+P047;piper negru măcinat;Fuchs;50.0;g;condimente;2025-06-05;2025-06-07;6
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-06-05;2025-06-07;27
+P063;cașcaval;K-Classic;0.25;kg;lactate;2025-06-05;2025-06-07;12

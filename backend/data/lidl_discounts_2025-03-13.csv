@@ -1,0 +1,13 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-03-13;2025-03-15;21
+P052;ciocolată neagră 70%;Fin Carre;100.0;g;gustări;2025-03-13;2025-03-15;23
+P037;detergent lichid;Persil;2.5;l;produse de menaj;2025-03-13;2025-03-15;18
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-03-13;2025-03-15;24
+P017;piept pui;Lidl;1.0;kg;carne;2025-03-13;2025-03-15;13
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-03-13;2025-03-15;28
+P026;banane;Lidl;1.0;kg;legume și fructe;2025-03-13;2025-03-15;9
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-03-13;2025-03-15;6
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-03-13;2025-03-15;15
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-03-13;2025-03-15;27
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-03-13;2025-03-15;5
+P066;cremă de brânză;Almette;0.15;kg;lactate;2025-03-13;2025-03-15;26

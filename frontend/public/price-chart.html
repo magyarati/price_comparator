@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Price History Graphs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .filters { display: flex; gap: 1em; margin-bottom: 1em; }
+        .chart-container { max-width: 800px; }
+        /* Debug window style to match split-basket.html */
+        #debug-log {
+            background: #111;
+            color: #9f9;
+            padding: 1em;
+            border-radius: 6px;
+            max-height: 280px;
+            overflow-y: auto;
+            margin-top: 2em;
+            font-size: 0.98em;
+            font-family: sans-serif;
+            display: none;
+        }
+        #debug-log h3 {
+            color: #fff;
+            margin-top: 0;
+        }
+        #debug-log pre {
+            color: #7f7;
+            margin: 0;
+        }
+        #debug-toggle-btn {
+            margin-top: 20px;
+            margin-bottom: -10px;
+            background: #222;
+            color: #9f9;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 18px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        #debug-toggle-btn:hover { background: #444; }
+    </style>
+</head>
+<body>
+<button onclick="window.location.href='index.html'">Home</button>
+<h1>Product Price History</h1>
+
+<div class="filters">
+    <label>
+        Product:
+        <select id="productFilter">
+            <option value="">Select Product</option>
+        </select>
+    </label>
+    <label>
+        Store(Optional):
+        <select id="storeFilter">
+            <option value="">All</option>
+        </select>
+    </label>
+    <label>
+        Category(Optional):
+        <select id="categoryFilter">
+            <option value="">All</option>
+        </select>
+    </label>
+    <label>
+        Brand(Optional):
+        <select id="brandFilter">
+            <option value="">All</option>
+        </select>
+    </label>
+    <button onclick="loadPriceHistory()">Show Chart</button>
+</div>
+
+<div class="chart-container">
+    <canvas id="historyChart"></canvas>
+</div>
+
+<!-- Toggle Debug Window Button and Window (matching split-basket.html) -->
+<button id="debug-toggle-btn" onclick="toggleDebugLog()">Show Debug Window</button>
+<div id="debug-log"><h3>Debug Window</h3></div>
+
+<script>
+    let chart; // Chart.js instance
+    let debugLog = [];
+    let debugVisible = false;
+
+    function toggleDebugLog() {
+        debugVisible = !debugVisible;
+        document.getElementById('debug-log').style.display = debugVisible ? 'block' : 'none';
+        document.getElementById('debug-toggle-btn').textContent = debugVisible ? "Hide Debug Window" : "Show Debug Window";
+        if (debugVisible) renderDebugLog();
+    }
+
+    function logDebug(title, obj) {
+        debugLog.push({ title, obj, time: new Date().toLocaleTimeString() });
+        if (debugLog.length > 8) debugLog.shift(); // keep only last 8
+        if (debugVisible) renderDebugLog();
+    }
+
+    function renderDebugLog() {
+        const html = `<h3>Debug Window</h3>` + debugLog.map(entry =>
+            `<div><b>[${entry.time}] ${entry.title}</b><pre>${JSON.stringify(entry.obj, null, 2)}</pre></div>`
+        ).join('');
+        document.getElementById('debug-log').innerHTML = html;
+    }
+
+    // Helper: Populate dropdowns
+    function setOptions(select, options) {
+        select.innerHTML = '';
+        const optAll = document.createElement('option');
+        optAll.value = '';
+        optAll.textContent = select.id === 'productFilter' ? 'Select Product' : 'All';
+        select.appendChild(optAll);
+        options.forEach(o => {
+            const opt = document.createElement('option');
+            opt.value = o;
+            opt.textContent = o;
+            select.appendChild(opt);
+        });
+    }
+
+    // Load all products (and their metadata) for dropdowns
+    async function loadFilterData() {
+        try {
+            logDebug('GET /api/products', null);
+            const resp = await fetch('/api/products');
+            const data = await resp.json();
+            logDebug('Response from /api/products:', data);
+            // Unique values
+            const stores = [...new Set(data.map(p => p.store))];
+            const categories = [...new Set(data.map(p => p.category))];
+            const brands = [...new Set(data.map(p => p.brand))];
+            const products = [...new Set(data.map(p => p.name))];
+            // Populate dropdowns
+            setOptions(document.getElementById('storeFilter'), stores);
+            setOptions(document.getElementById('categoryFilter'), categories);
+            setOptions(document.getElementById('brandFilter'), brands);
+            setOptions(document.getElementById('productFilter'), products);
+        } catch (e) {
+            logDebug('Error loading filter data:', e);
+            alert("Could not load filter data: " + e);
+        }
+    }
+
+    // If product filter changes, keep others in sync (optional)
+    document.getElementById('productFilter').addEventListener('change', () => {
+        // Could filter other dropdowns, but not strictly required here
+    });
+
+    async function loadPriceHistory() {
+        const store = document.getElementById('storeFilter').value;
+        const category = document.getElementById('categoryFilter').value;
+        const brand = document.getElementById('brandFilter').value;
+        const product = document.getElementById('productFilter').value;
+
+        if (!product) {
+            alert('Please select a product');
+            return;
+        }
+
+        // Query backend
+        const params = new URLSearchParams();
+        if (store) params.append('store', store);
+        if (category) params.append('category', category);
+        if (brand) params.append('brand', brand);
+        params.append('name', product);
+
+        const url = '/api/products/history?' + params.toString();
+        logDebug('Calling: ' + url);
+
+        try {
+            const resp = await fetch(url);
+            const data = await resp.json();
+            logDebug('Response:', data);
+
+            // Sort by date
+            data.sort((a, b) => a.date.localeCompare(b.date));
+
+            // Prepare for chart
+            const labels = data.map(d => d.date);
+            const prices = data.map(d => d.price);
+
+            // Chart title/legend
+            let chartLabel = product;
+            if (brand) chartLabel += ' (' + brand + ')';
+            if (store) chartLabel += ' @ ' + store;
+
+            // Destroy previous chart if exists
+            if (chart) chart.destroy();
+
+            chart = new Chart(document.getElementById('historyChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: chartLabel,
+                        data: prices,
+                        fill: false,
+                        tension: 0.2,
+                        borderWidth: 3,
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { title: { display: true, text: "Date" } },
+                        y: { title: { display: true, text: "Price (RON)" }, beginAtZero: false }
+                    },
+                    plugins: {
+                        legend: { display: true }
+                    }
+                }
+            });
+        } catch (e) {
+            logDebug('Error:', e);
+            alert("API error: " + e);
+        }
+    }
+
+    // On page load, populate filters
+    window.onload = loadFilterData;
+</script>
+</body>
+</html>

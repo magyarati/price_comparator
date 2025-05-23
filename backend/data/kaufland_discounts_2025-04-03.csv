@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P012;pâine albă;K-Classic;500.0;g;panificație;2025-04-03;2025-04-09;26
+P018;piept pui;Agricola;1.0;kg;carne;2025-04-03;2025-04-09;18
+P044;hârtie igienică 3 straturi;Pufina;10.0;role;produse de menaj;2025-04-03;2025-04-09;18
+P025;apă plată;Dorna;2.0;l;băuturi;2025-04-03;2025-04-09;28
+P003;iaurt grecesc;Olympus;0.4;kg;lactate;2025-04-03;2025-04-09;25
+P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-04-03;2025-04-09;29
+P032;biscuiți cu unt;Milka;0.2;kg;gustări;2025-04-03;2025-04-09;30
+P022;zahăr tos;Mărgăritar;1.0;kg;alimente de bază;2025-04-03;2025-04-09;14
+P062;cașcaval;Delaco;0.25;kg;lactate;2025-04-03;2025-04-09;22
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-04-03;2025-04-09;26

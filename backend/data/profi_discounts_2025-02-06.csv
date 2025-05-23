@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-02-06;2025-02-09;23
+P046;piper negru măcinat;Kotanyi;50.0;g;condimente;2025-02-06;2025-02-09;15
+P011;pâine albă;Lidl;500.0;g;panificație;2025-02-06;2025-02-09;13
+P037;detergent lichid;Persil;2.5;l;produse de menaj;2025-02-06;2025-02-09;30
+P014;roșii cherry;Lidl;250.0;g;legume și fructe;2025-02-06;2025-02-09;13
+P031;biscuiți cu unt;Deluxe;0.2;kg;gustări;2025-02-06;2025-02-09;27
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-02-06;2025-02-09;14
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-02-06;2025-02-09;6
+P028;ulei floarea-soarelui;Bunica;1.0;l;alimente de bază;2025-02-06;2025-02-09;22
+P034;cafea măcinată;Davidoff;0.25;kg;cafea;2025-02-06;2025-02-09;19
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-02-06;2025-02-09;10

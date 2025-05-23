@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P015;roșii cherry;K-Bio;250.0;g;legume și fructe;2025-01-23;2025-01-29;8
+P012;pâine albă;K-Classic;500.0;g;panificație;2025-01-23;2025-01-29;16
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-01-23;2025-01-29;5
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-01-23;2025-01-29;22
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-01-23;2025-01-29;14
+P025;apă plată;Dorna;2.0;l;băuturi;2025-01-23;2025-01-29;10
+P062;cașcaval;Delaco;0.25;kg;lactate;2025-01-23;2025-01-29;12
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-01-23;2025-01-29;5
+P029;ulei floarea-soarelui;Floriol;1.0;l;alimente de bază;2025-01-23;2025-01-29;26
+P009;brânză telemea;Hochland;0.3;kg;lactate;2025-01-23;2025-01-29;12

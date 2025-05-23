@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-01-30;2025-02-04;22
+P034;cafea măcinată;Davidoff;0.25;kg;cafea;2025-01-30;2025-02-04;27
+P055;cartofi albi;Lidl;1.0;kg;legume și fructe;2025-01-30;2025-02-04;28
+P046;piper negru măcinat;Kotanyi;50.0;g;condimente;2025-01-30;2025-02-04;6
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-01-30;2025-02-04;13
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-01-30;2025-02-04;15
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-01-30;2025-02-04;13
+P008;brânză telemea;Pilos;0.3;kg;lactate;2025-01-30;2025-02-04;26
+P043;hârtie igienică 3 straturi;Zewa;10.0;role;produse de menaj;2025-01-30;2025-02-04;11
+P031;biscuiți cu unt;Deluxe;0.2;kg;gustări;2025-01-30;2025-02-04;26
+P066;cremă de brânză;Almette;0.15;kg;lactate;2025-01-30;2025-02-04;17

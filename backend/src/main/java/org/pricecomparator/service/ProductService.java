@@ -76,30 +76,117 @@ public class ProductService {
         return result;
     }
 
-    public List<Map<String, Object>> getHistory(String store, String name) {
+    public List<Map<String, Object>> getHistory(String name, String store, String brand, String category) {
         Path dir = Paths.get(dataPath);
+        List<Map<String, Object>> allHistory = new ArrayList<>();
         try {
-            return Files.list(dir)
-                    .map(Path::getFileName).map(Path::toString)
-                    .filter(n -> n.startsWith(store + "_") && n.endsWith(".csv") && !n.contains("discount"))
-                    .map(filename -> {
-                        LocalDate date = LocalDate.parse(filename.substring((store + "_").length(), filename.length() - 4));
-                        List<Product> list;
-                        try {
-                            list = CsvParser.parsePriceCsv(Paths.get(dataPath, filename).toString(), store, date);
-                        } catch (IOException | CsvValidationException e) {
-                            throw new RuntimeException("Failed to parse CSV file: " + filename, e);
-                        }
-                        double price = list.stream()
+            // Stores selection
+            List<String> stores = (store != null && !store.isBlank())
+                    ? List.of(store)
+                    : List.of("lidl", "kaufland", "profi");
+
+            for (String s : stores) {
+                // Get price files for the store
+                List<String> priceFiles = Files.list(dir)
+                        .map(Path::getFileName).map(Path::toString)
+                        .filter(n -> n.startsWith(s + "_") && n.endsWith(".csv") && !n.contains("discount"))
+                        .collect(Collectors.toList());
+
+                Set<LocalDate> priceDates = priceFiles.stream()
+                        .map(filename -> LocalDate.parse(filename.substring((s + "_").length(), filename.length() - 4)))
+                        .collect(Collectors.toSet());
+
+                // Collect all discounts for this product
+                List<CsvParser.DiscountRecord> allDiscounts = Files.list(dir)
+                        .map(Path::getFileName).map(Path::toString)
+                        .filter(n -> n.startsWith(s + "_discount") && n.endsWith(".csv"))
+                        .flatMap(filename -> {
+                            try {
+                                return CsvParser.parseDiscountCsv(Paths.get(dataPath, filename).toString()).stream();
+                            } catch (IOException | CsvValidationException e) {
+                                return new ArrayList<CsvParser.DiscountRecord>().stream();
+                            }
+                        })
+                        .filter(r -> r.getName().equalsIgnoreCase(name))
+                        .filter(r -> brand == null || brand.isBlank() || (r.getBrand() != null && r.getBrand().equalsIgnoreCase(brand)))
+                        .filter(r -> category == null || category.isBlank() || (r.getCategory() != null && r.getCategory().equalsIgnoreCase(category)))
+                        .collect(Collectors.toList());
+
+                // All price/discount change dates
+                Set<LocalDate> discountChangeDates = new HashSet<>();
+                for (CsvParser.DiscountRecord d : allDiscounts) {
+                    discountChangeDates.add(d.getFrom());
+                    if (d.getTo() != null) discountChangeDates.add(d.getTo().plusDays(1));
+                }
+                Set<LocalDate> allChangeDates = new HashSet<>(priceDates);
+                allChangeDates.addAll(discountChangeDates);
+                List<LocalDate> sortedDates = allChangeDates.stream().sorted().collect(Collectors.toList());
+
+                List<Map<String, Object>> history = new ArrayList<>();
+                for (LocalDate date : sortedDates) {
+                    Optional<LocalDate> priceDateOpt = priceDates.stream()
+                            .filter(d -> !d.isAfter(date))
+                            .max(Comparator.naturalOrder());
+                    double basePrice = Double.NaN;
+                    String foundBrand = null;
+                    String foundCategory = null;
+
+                    if (priceDateOpt.isPresent()) {
+                        String priceFile = Paths.get(dataPath, s + "_" + priceDateOpt.get() + ".csv").toString();
+                        List<Product> plist = CsvParser.parsePriceCsv(priceFile, s, priceDateOpt.get());
+                        Optional<Product> prodOpt = plist.stream()
                                 .filter(p -> p.getName().equalsIgnoreCase(name))
-                                .map(Product::getPrice).findFirst().orElse(Double.NaN);
+                                .filter(p -> brand == null || brand.isBlank() || (p.getBrand() != null && p.getBrand().equalsIgnoreCase(brand)))
+                                .filter(p -> category == null || category.isBlank() || (p.getCategory() != null && p.getCategory().equalsIgnoreCase(category)))
+                                .findFirst();
+                        if (prodOpt.isPresent()) {
+                            Product prod = prodOpt.get();
+                            basePrice = prod.getPrice();
+                            foundBrand = prod.getBrand();
+                            foundCategory = prod.getCategory();
+                        }
+                    }
+
+                    double discountPct = allDiscounts.stream()
+                            .filter(r -> !date.isBefore(r.getFrom()) && !date.isAfter(r.getTo()))
+                            .mapToDouble(CsvParser.DiscountRecord::getPercentage)
+                            .max()
+                            .orElse(0.0);
+
+                    double discountedPrice = basePrice;
+                    if (!Double.isNaN(basePrice) && discountPct > 0.0) {
+                        discountedPrice = basePrice * (1.0 - discountPct / 100.0);
+                    }
+
+                    boolean addPoint = history.isEmpty();
+                    if (!history.isEmpty()) {
+                        Map<String, Object> prev = history.get(history.size() - 1);
+                        double prevPrice = (double) prev.getOrDefault("price", Double.NaN);
+                        double prevOrig = (double) prev.getOrDefault("originalPrice", Double.NaN);
+                        double prevPct = (double) prev.getOrDefault("discountPct", 0.0);
+                        addPoint = (Math.abs(prevPrice - discountedPrice) > 0.001)
+                                || (Math.abs(prevOrig - basePrice) > 0.001)
+                                || (Math.abs(prevPct - discountPct) > 0.001);
+                    }
+
+                    if (addPoint && !Double.isNaN(basePrice)) {
                         Map<String, Object> rec = new HashMap<>();
                         rec.put("date", date.toString());
-                        rec.put("price", price);
-                        return rec;
-                    })
-                    .sorted(Comparator.comparing(m -> LocalDate.parse((String) m.get("date"))))
-                    .collect(Collectors.toList());
+                        rec.put("store", s);
+                        rec.put("name", name);
+                        rec.put("brand", foundBrand != null ? foundBrand : (brand != null ? brand : ""));
+                        rec.put("category", foundCategory != null ? foundCategory : (category != null ? category : ""));
+                        rec.put("price", discountedPrice);
+                        rec.put("originalPrice", basePrice);
+                        rec.put("discountPct", discountPct);
+                        history.add(rec);
+                    }
+                }
+                allHistory.addAll(history);
+            }
+            allHistory.sort(Comparator.comparing((Map<String, Object> m) -> (String) m.get("date"))
+                    .thenComparing(m -> (String) m.get("store")));
+            return allHistory;
         } catch (Exception e) {
             throw new RuntimeException("Failed to load history", e);
         }

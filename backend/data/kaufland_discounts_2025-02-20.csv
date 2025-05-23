@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P056;cartofi albi;Generic;1.0;kg;legume și fructe;2025-02-20;2025-02-23;17
+P018;piept pui;Agricola;1.0;kg;carne;2025-02-20;2025-02-23;23
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-02-20;2025-02-23;6
+P022;zahăr tos;Mărgăritar;1.0;kg;alimente de bază;2025-02-20;2025-02-23;16
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-02-20;2025-02-23;9
+P025;apă plată;Dorna;2.0;l;băuturi;2025-02-20;2025-02-23;5
+P053;ciocolată neagră 70%;Heidi;100.0;g;gustări;2025-02-20;2025-02-23;9
+P035;cafea măcinată;Jacobs;0.25;kg;cafea;2025-02-20;2025-02-23;26
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-02-20;2025-02-23;15
+P029;ulei floarea-soarelui;Floriol;1.0;l;alimente de bază;2025-02-20;2025-02-23;5

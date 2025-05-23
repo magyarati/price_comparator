@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P042;șampon păr gras;Schauma;400.0;ml;îngrijire personală;2025-03-13;2025-03-16;25
+P051;vin alb demisec;Cotnari;0.75;l;băuturi;2025-03-13;2025-03-16;25
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-03-13;2025-03-16;24
+P013;pâine albă;Proxi;500.0;g;panificație;2025-03-13;2025-03-16;19
+P067;orez bob lung;Deroni;1.0;kg;alimente de bază;2025-03-13;2025-03-16;25
+P023;zahăr tos;Proxi;1.0;kg;alimente de bază;2025-03-13;2025-03-16;13
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-03-13;2025-03-16;20
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-03-13;2025-03-16;10
+P039;detergent lichid;Dero;2.5;l;produse de menaj;2025-03-13;2025-03-16;17
+P036;cafea măcinată;Tchibo;0.25;kg;cafea;2025-03-13;2025-03-16;27

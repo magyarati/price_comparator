@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P057;ceapă galbenă;Lidl;1.0;kg;legume și fructe;2025-04-24;2025-04-26;20
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-04-24;2025-04-26;23
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-04-24;2025-04-26;27
+P008;brânză telemea;Pilos;0.3;kg;lactate;2025-04-24;2025-04-26;28
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-04-24;2025-04-26;11
+P034;cafea măcinată;Davidoff;0.25;kg;cafea;2025-04-24;2025-04-26;6
+P066;cremă de brânză;Almette;0.15;kg;lactate;2025-04-24;2025-04-26;23
+P046;piper negru măcinat;Kotanyi;50.0;g;condimente;2025-04-24;2025-04-26;22
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-04-24;2025-04-26;17
+P017;piept pui;Lidl;1.0;kg;carne;2025-04-24;2025-04-26;13
+P052;ciocolată neagră 70%;Fin Carre;100.0;g;gustări;2025-04-24;2025-04-26;8

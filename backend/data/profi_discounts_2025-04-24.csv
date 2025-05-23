@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P007;ouă mărimea M;Din Ogradă;10.0;buc;ouă;2025-04-24;2025-04-28;29
+P023;zahăr tos;Proxi;1.0;kg;alimente de bază;2025-04-24;2025-04-28;15
+P070;bere blondă;Ursus;0.5;l;băuturi;2025-04-24;2025-04-28;29
+P013;pâine albă;Proxi;500.0;g;panificație;2025-04-24;2025-04-28;26
+P039;detergent lichid;Dero;2.5;l;produse de menaj;2025-04-24;2025-04-28;27
+P068;iaurt de băut;Activia;0.33;kg;lactate;2025-04-24;2025-04-28;16
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-04-24;2025-04-28;7
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-04-24;2025-04-28;13
+P067;orez bob lung;Deroni;1.0;kg;alimente de bază;2025-04-24;2025-04-28;9
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-04-24;2025-04-28;10
+P054;ciocolată neagră 70%;Poiana;100.0;g;gustări;2025-04-24;2025-04-28;21

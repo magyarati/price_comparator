@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P064;mălai extra;Pambac;1.0;kg;alimente de bază;2025-04-10;2025-04-14;8
+P014;roșii cherry;Lidl;250.0;g;legume și fructe;2025-04-10;2025-04-14;24
+P011;pâine albă;Lidl;500.0;g;panificație;2025-04-10;2025-04-14;21
+P034;cafea măcinată;Davidoff;0.25;kg;cafea;2025-04-10;2025-04-14;22
+P065;file somon;Lidl;0.2;kg;pește;2025-04-10;2025-04-14;10
+P055;cartofi albi;Lidl;1.0;kg;legume și fructe;2025-04-10;2025-04-14;22
+P026;banane;Lidl;1.0;kg;legume și fructe;2025-04-10;2025-04-14;6
+P057;ceapă galbenă;Lidl;1.0;kg;legume și fructe;2025-04-10;2025-04-14;20
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-04-10;2025-04-14;6
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-04-10;2025-04-14;5
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-04-10;2025-04-14;18

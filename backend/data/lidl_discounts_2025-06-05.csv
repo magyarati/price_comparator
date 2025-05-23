@@ -1,13 +1,13 @@
 product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
-P008;brânză telemea;Pilos;0.3;kg;lactate;2025-06-07;2025-06-11;14
-P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-06-05;2025-06-11;23
-P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-06-06;2025-06-10;11
-P052;ciocolată neagră 70%;Fin Carre;100.0;g;gustări;2025-06-05;2025-06-09;29
-P043;hârtie igienică 3 straturi;Zewa;10.0;role;produse de menaj;2025-06-06;2025-06-10;7
-P064;mălai extra;Pambac;1.0;kg;alimente de bază;2025-06-05;2025-06-11;19
-P065;file somon;Lidl;0.2;kg;pește;2025-06-05;2025-06-11;5
-P066;cremă de brânză;Almette;0.15;kg;lactate;2025-06-08;2025-06-10;29
-P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-06-06;2025-06-11;24
-P017;piept pui;Lidl;1.0;kg;carne;2025-06-06;2025-06-11;6
-P014;roșii cherry;Lidl;250.0;g;legume și fructe;2025-06-08;2025-06-11;26
-P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-06-07;2025-06-10;18
+P008;brânză telemea;Pilos;0.3;kg;lactate;2025-06-05;2025-06-08;12
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-06-05;2025-06-08;30
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-06-05;2025-06-08;12
+P017;piept pui;Lidl;1.0;kg;carne;2025-06-05;2025-06-08;26
+P028;ulei floarea-soarelui;Bunica;1.0;l;alimente de bază;2025-06-05;2025-06-08;20
+P057;ceapă galbenă;Lidl;1.0;kg;legume și fructe;2025-06-05;2025-06-08;29
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-06-05;2025-06-08;22
+P066;cremă de brânză;Almette;0.15;kg;lactate;2025-06-05;2025-06-08;20
+P049;vin alb demisec;Jidvei;0.75;l;băuturi;2025-06-05;2025-06-08;16
+P011;pâine albă;Lidl;500.0;g;panificație;2025-06-05;2025-06-08;21
+P065;file somon;Lidl;0.2;kg;pește;2025-06-05;2025-06-08;26
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-06-05;2025-06-08;16

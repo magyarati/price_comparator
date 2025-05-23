@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +31,8 @@ class ProductServiceTest {
         assertFalse(all.isEmpty(), "Product list should not be empty");
 
         Product p = all.get(0);
-        List<?> hist = productService.getHistory("lidl", p.getName());
+        // Updated to correct parameter order and count:
+        List<Map<String, Object>> hist = productService.getHistory(p.getName(), "lidl", null, null);
         assertNotNull(hist);
         assertFalse(hist.isEmpty(), "History should contain data");
     }

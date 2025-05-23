@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P027;banane;Generic;1.0;kg;legume și fructe;2025-01-30;2025-02-03;27
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-01-30;2025-02-03;21
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-01-30;2025-02-03;9
+P054;ciocolată neagră 70%;Poiana;100.0;g;gustări;2025-01-30;2025-02-03;27
+P070;bere blondă;Ursus;0.5;l;băuturi;2025-01-30;2025-02-03;15
+P048;piper negru măcinat;Kamis;50.0;g;condimente;2025-01-30;2025-02-03;15
+P023;zahăr tos;Proxi;1.0;kg;alimente de bază;2025-01-30;2025-02-03;21
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-01-30;2025-02-03;28
+P030;ulei floarea-soarelui;Spornic;1.0;l;alimente de bază;2025-01-30;2025-02-03;10
+P016;roșii cherry;Generic;250.0;g;legume și fructe;2025-01-30;2025-02-03;17

@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-03-06;2025-03-10;18
+P028;ulei floarea-soarelui;Bunica;1.0;l;alimente de bază;2025-03-06;2025-03-10;5
+P005;ouă mărimea M;Lidl;10.0;buc;ouă;2025-03-06;2025-03-10;13
+P034;cafea măcinată;Davidoff;0.25;kg;cafea;2025-03-06;2025-03-10;6
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-03-06;2025-03-10;6
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-03-06;2025-03-10;23
+P011;pâine albă;Lidl;500.0;g;panificație;2025-03-06;2025-03-10;27
+P017;piept pui;Lidl;1.0;kg;carne;2025-03-06;2025-03-10;12
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-03-06;2025-03-10;23
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-03-06;2025-03-10;16
+P043;hârtie igienică 3 straturi;Zewa;10.0;role;produse de menaj;2025-03-06;2025-03-10;20

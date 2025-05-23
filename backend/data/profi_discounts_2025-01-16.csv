@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P016;roșii cherry;Generic;250.0;g;legume și fructe;2025-01-16;2025-01-18;7
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-01-16;2025-01-18;6
+P054;ciocolată neagră 70%;Poiana;100.0;g;gustări;2025-01-16;2025-01-18;10
+P036;cafea măcinată;Tchibo;0.25;kg;cafea;2025-01-16;2025-01-18;13
+P033;biscuiți cu unt;RoStar;0.2;kg;gustări;2025-01-16;2025-01-18;19
+P051;vin alb demisec;Cotnari;0.75;l;băuturi;2025-01-16;2025-01-18;21
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-01-16;2025-01-18;5
+P067;orez bob lung;Deroni;1.0;kg;alimente de bază;2025-01-16;2025-01-18;23
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-01-16;2025-01-18;27
+P010;brânză telemea;Proxi;0.3;kg;lactate;2025-01-16;2025-01-18;26

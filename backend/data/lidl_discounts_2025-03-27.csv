@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P046;piper negru măcinat;Kotanyi;50.0;g;condimente;2025-03-27;2025-03-29;28
+P008;brânză telemea;Pilos;0.3;kg;lactate;2025-03-27;2025-03-29;11
+P011;pâine albă;Lidl;500.0;g;panificație;2025-03-27;2025-03-29;23
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-03-27;2025-03-29;27
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-03-27;2025-03-29;18
+P043;hârtie igienică 3 straturi;Zewa;10.0;role;produse de menaj;2025-03-27;2025-03-29;6
+P057;ceapă galbenă;Lidl;1.0;kg;legume și fructe;2025-03-27;2025-03-29;14
+P065;file somon;Lidl;0.2;kg;pește;2025-03-27;2025-03-29;9
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-03-27;2025-03-29;12
+P055;cartofi albi;Lidl;1.0;kg;legume și fructe;2025-03-27;2025-03-29;19
+P017;piept pui;Lidl;1.0;kg;carne;2025-03-27;2025-03-29;28

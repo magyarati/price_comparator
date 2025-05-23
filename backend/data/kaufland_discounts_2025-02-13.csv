@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P022;zahăr tos;Mărgăritar;1.0;kg;alimente de bază;2025-02-13;2025-02-17;18
+P003;iaurt grecesc;Olympus;0.4;kg;lactate;2025-02-13;2025-02-17;7
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-02-13;2025-02-17;14
+P058;ceapă galbenă;Generic;1.0;kg;legume și fructe;2025-02-13;2025-02-17;10
+P025;apă plată;Dorna;2.0;l;băuturi;2025-02-13;2025-02-17;10
+P059;morcovi;Generic;0.5;kg;legume și fructe;2025-02-13;2025-02-17;5
+P044;hârtie igienică 3 straturi;Pufina;10.0;role;produse de menaj;2025-02-13;2025-02-17;15
+P038;detergent lichid;Ariel;2.5;l;produse de menaj;2025-02-13;2025-02-17;6
+P027;banane;Generic;1.0;kg;legume și fructe;2025-02-13;2025-02-17;7
+P012;pâine albă;K-Classic;500.0;g;panificație;2025-02-13;2025-02-17;8
+P041;șampon păr gras;Elseve;400.0;ml;îngrijire personală;2025-02-13;2025-02-17;21
