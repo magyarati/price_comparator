@@ -1,0 +1,12 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P070;bere blondă;Ursus;0.5;l;băuturi;2025-05-29;2025-06-04;7
+P023;zahăr tos;Proxi;1.0;kg;alimente de bază;2025-05-30;2025-06-02;17
+P013;pâine albă;Proxi;500.0;g;panificație;2025-05-30;2025-06-02;29
+P019;piept pui;Avicola;1.0;kg;carne;2025-05-29;2025-06-04;19
+P007;ouă mărimea M;Din Ogradă;10.0;buc;ouă;2025-06-01;2025-06-03;22
+P067;orez bob lung;Deroni;1.0;kg;alimente de bază;2025-06-01;2025-06-04;15
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-05-29;2025-05-31;17
+P030;ulei floarea-soarelui;Spornic;1.0;l;alimente de bază;2025-05-29;2025-06-03;7
+P016;roșii cherry;Generic;250.0;g;legume și fructe;2025-05-29;2025-06-01;5
+P010;brânză telemea;Proxi;0.3;kg;lactate;2025-05-31;2025-06-03;7
+P054;ciocolată neagră 70%;Poiana;100.0;g;gustări;2025-05-30;2025-06-04;23

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Discounts (Last 24 Hours)</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        table { border-collapse: collapse; margin-top: 1em; }
+        th, td { border: 1px solid #ccc; padding: 0.5em 1em; }
+    </style>
+</head>
+<body>
+<button onclick="window.location.href='index.html'">Home</button>
+<h1>New Discounts - Last 24 Hours</h1>
+<button onclick="loadNewDiscounts()">Load New Discounts</button>
+<table id="discountsTable">
+    <thead>
+    <tr>
+        <th>Store</th>
+        <th>Product</th>
+        <th>Brand</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+        <th>Original Price</th>
+        <th>Discounted Price</th>
+        <th>Discount %</th>
+        <th>Valid From</th>
+        <th>Valid To</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<script>
+    function loadNewDiscounts() {
+        fetch('/api/discounts/new')
+            .then(resp => resp.json())
+            .then(data => {
+                const tbody = document.querySelector('#discountsTable tbody');
+                tbody.innerHTML = '';
+                data.forEach(discount => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${discount.store ?? ''}</td>
+                        <td>${discount.productName ?? ''}</td>
+                        <td>${discount.brand ?? ''}</td>
+                        <td>${discount.productCategory ?? ''}</td>
+                        <td>${discount.quantity ?? ''}</td>
+                        <td>${discount.unit ?? ''}</td>
+                        <td>${discount.originalPrice ?? ''}</td>
+                        <td>${discount.discountedPrice ?? ''}</td>
+                        <td>${discount.discountPercent ?? ''}</td>
+                        <td>${discount.validFrom ?? ''}</td>
+                        <td>${discount.validUntil ?? ''}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(e => alert("Error loading new discounts: " + e));
+    }
+</script>
+</body>
+</html>

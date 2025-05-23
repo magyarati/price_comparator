@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.nio.file.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -79,6 +81,13 @@ public class InMemoryDiscountRepository implements DiscountRepository {
                 .filter(d -> d.getValidFrom() != null && d.getValidUntil() != null)
                 .filter(d -> !date.isBefore(d.getValidFrom()) && !date.isAfter(d.getValidUntil()))
                 .max(Comparator.comparing(Discount::getPercentage));
+    }
+    public List<Discount> getNewDiscountsWithin24Hours() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime yesterday = now.minusHours(24);
+        return discounts.stream()
+                .filter(d -> d.getValidFrom().isAfter(ChronoLocalDate.from(yesterday)))
+                .collect(Collectors.toList());
     }
 
 }

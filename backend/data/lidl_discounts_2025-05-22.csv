@@ -1,0 +1,11 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P055;cartofi albi;Lidl;1.0;kg;legume și fructe;2025-05-23;2025-05-28;19
+P046;piper negru măcinat;Kotanyi;50.0;g;condimente;2025-05-23;2025-05-27;16
+P014;roșii cherry;Lidl;250.0;g;legume și fructe;2025-05-23;2025-05-28;15
+P002;iaurt grecesc;Lidl;0.4;kg;lactate;2025-05-23;2025-05-28;6
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-05-22;2025-05-27;5
+P057;ceapă galbenă;Lidl;1.0;kg;legume și fructe;2025-05-22;2025-05-27;24
+P040;șampon păr gras;Head & Shoulders;400.0;ml;îngrijire personală;2025-05-23;2025-05-28;12
+P021;zahăr tos;Lidl;1.0;kg;alimente de bază;2025-05-23;2025-05-25;16
+P024;apă plată;Aqua Carpatica;2.0;l;băuturi;2025-05-24;2025-05-27;20
+P011;pâine albă;Lidl;500.0;g;panificație;2025-05-23;2025-05-26;15

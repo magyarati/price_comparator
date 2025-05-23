@@ -1,6 +1,7 @@
 package org.pricecomparator.controller;
 
 import org.pricecomparator.dto.BestDiscountDto;
+import org.pricecomparator.dto.NewDiscountDto;
 import org.pricecomparator.service.DiscountService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +28,10 @@ public class DiscountController {
         } else {
             return discountService.getBestDiscounts(topN);
         }
+    }
+
+    @GetMapping("/new")
+    public List<NewDiscountDto> getNewDiscounts() {
+        return discountService.getNewDiscounts();
     }
 }

@@ -1,0 +1,13 @@
+product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount
+P068;iaurt de băut;Activia;0.33;kg;lactate;2025-06-05;2025-06-10;20
+P010;brânză telemea;Proxi;0.3;kg;lactate;2025-06-06;2025-06-11;11
+P016;roșii cherry;Generic;250.0;g;legume și fructe;2025-06-05;2025-06-11;26
+P001;lapte zuzu;Zuzu;1.0;l;lactate;2025-06-05;2025-06-11;6
+P013;pâine albă;Proxi;500.0;g;panificație;2025-06-05;2025-06-11;14
+P067;orez bob lung;Deroni;1.0;kg;alimente de bază;2025-06-06;2025-06-09;7
+P020;spaghetti nr.5;Barilla;500.0;g;paste făinoase;2025-06-05;2025-06-11;28
+P004;iaurt grecesc;Proxi;0.4;kg;lactate;2025-06-05;2025-06-09;29
+P070;bere blondă;Ursus;0.5;l;băuturi;2025-06-07;2025-06-11;17
+P051;vin alb demisec;Cotnari;0.75;l;băuturi;2025-06-05;2025-06-07;29
+P039;detergent lichid;Dero;2.5;l;produse de menaj;2025-06-07;2025-06-09;16
+P036;cafea măcinată;Tchibo;0.25;kg;cafea;2025-06-06;2025-06-09;8
