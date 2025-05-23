@@ -1,7 +1,7 @@
-package org.example.pricecomparator;
+package org.pricecomparator;
 
-import org.example.pricecomparator.model.Product;
-import org.example.pricecomparator.service.ProductService;
+import org.pricecomparator.model.Product;
+import org.pricecomparator.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

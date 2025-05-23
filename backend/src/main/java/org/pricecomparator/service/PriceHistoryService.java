@@ -1,8 +1,8 @@
-package org.example.pricecomparator.service;
+package org.pricecomparator.service;
 
-import org.example.pricecomparator.repository.ProductRepository;
+import org.pricecomparator.repository.ProductRepository;
 import org.springframework.stereotype.Service;
-import org.example.pricecomparator.model.Product;
+import org.pricecomparator.model.Product;
 
 import java.util.List;
 

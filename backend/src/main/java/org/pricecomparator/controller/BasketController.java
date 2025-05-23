@@ -1,8 +1,8 @@
-package org.example.pricecomparator.controller;
+package org.pricecomparator.controller;
 
-import org.example.pricecomparator.dto.BasketRequest;
-import org.example.pricecomparator.dto.BasketResponse;
-import org.example.pricecomparator.service.BasketService;
+import org.pricecomparator.dto.BasketRequest;
+import org.pricecomparator.dto.BasketResponse;
+import org.pricecomparator.service.BasketService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

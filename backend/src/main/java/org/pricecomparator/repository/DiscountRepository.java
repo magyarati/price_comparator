@@ -1,6 +1,6 @@
-package org.example.pricecomparator.repository;
+package org.pricecomparator.repository;
 
-import org.example.pricecomparator.model.Discount;
+import org.pricecomparator.model.Discount;
 import java.util.List;
 
 public interface DiscountRepository {

@@ -1,8 +1,8 @@
-package org.example.pricecomparator.util;
+package org.pricecomparator.util;
 
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
-import org.example.pricecomparator.model.Product;
+import org.pricecomparator.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,23 +15,39 @@ public class CsvParser {
     private static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
 
     public static class DiscountRecord {
+
+        private final String id;
         private final String name;
-        private final LocalDate from, to;
+        private final String brand;
+        private final double quantity;
+        private final String unit;
+        private final String category;
+        private final LocalDate from;
+        private final LocalDate to;
         private final double percentage;
 
-        public DiscountRecord(String name, LocalDate from, LocalDate to, double percentage) {
+        public DiscountRecord(String id, String name, String brand, double quantity, String unit, String category,
+                              LocalDate from, LocalDate to, double percentage) {
+            this.id = id;
             this.name = name;
+            this.brand = brand;
+            this.quantity = quantity;
+            this.unit = unit;
+            this.category = category;
             this.from = from;
             this.to = to;
             this.percentage = percentage;
         }
 
+        // Getters for all fields...
+        public String getId() { return id; }
         public String getName() { return name; }
-
+        public String getCategory() { return category; }
+        public String getBrand() { return brand; }
+        public double getQuantity() { return quantity; }
+        public String getUnit() { return unit; }
         public LocalDate getFrom() { return from; }
-
         public LocalDate getTo() { return to; }
-
         public double getPercentage() { return percentage; }
     }
 
@@ -73,12 +89,18 @@ public class CsvParser {
                     continue;
                 }
                 try {
-                    list.add(new DiscountRecord(
-                            row[1],
-                            LocalDate.parse(row[6]),
-                            LocalDate.parse(row[7]),
-                            Double.parseDouble(row[8])
-                    ));
+                    DiscountRecord discount = new DiscountRecord(
+                            row[0], // id
+                            row[1], // name
+                            row[2], // brand
+                            Double.parseDouble(row[3]), // quantity
+                            row[4], // unit
+                            row[5], // category
+                            LocalDate.parse(row[6]), // from
+                            LocalDate.parse(row[7]), // to
+                            Double.parseDouble(row[8]) // percentage
+                    );
+                    list.add(discount);
                 } catch (Exception e) {
                     logger.warn("Error parsing discount row {}: {}", Arrays.toString(row), e.getMessage());
                 }
@@ -86,6 +108,7 @@ public class CsvParser {
         }
         return list;
     }
+
 
     private static boolean isDataRow(String[] row) {
         // expect 8 cols: id;name;category;brand;qty;unit;price;currency

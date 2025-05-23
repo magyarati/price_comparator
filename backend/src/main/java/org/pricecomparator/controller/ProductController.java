@@ -1,7 +1,7 @@
-package org.example.pricecomparator.controller;
+package org.pricecomparator.controller;
 
-import org.example.pricecomparator.model.Product;
-import org.example.pricecomparator.service.ProductService;
+import org.pricecomparator.model.Product;
+import org.pricecomparator.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;

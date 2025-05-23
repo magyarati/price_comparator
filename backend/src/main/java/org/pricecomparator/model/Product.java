@@ -1,4 +1,4 @@
-package org.example.pricecomparator.model;
+package org.pricecomparator.model;
 
 public class Product {
     private String store;

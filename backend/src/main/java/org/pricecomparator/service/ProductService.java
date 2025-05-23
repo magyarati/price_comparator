@@ -1,7 +1,7 @@
-package org.example.pricecomparator.service;
+package org.pricecomparator.service;
 
-import org.example.pricecomparator.model.Product;
-import org.example.pricecomparator.util.CsvParser;
+import org.pricecomparator.model.Product;
+import org.pricecomparator.util.CsvParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.opencsv.exceptions.CsvValidationException;

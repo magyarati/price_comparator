@@ -1,4 +1,4 @@
-package org.example.pricecomparator.dto;
+package org.pricecomparator.dto;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
-package org.example.pricecomparator.repository;
+package org.pricecomparator.repository;
 
-import org.example.pricecomparator.model.Product;
+import org.pricecomparator.model.Product;
 import java.util.List;
 import java.util.Optional;
 

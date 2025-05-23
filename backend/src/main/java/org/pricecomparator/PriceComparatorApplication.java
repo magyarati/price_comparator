@@ -1,4 +1,4 @@
-package org.example.pricecomparator;
+package org.pricecomparator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

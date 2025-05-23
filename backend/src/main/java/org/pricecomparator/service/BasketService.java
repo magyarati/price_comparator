@@ -1,8 +1,8 @@
-package org.example.pricecomparator.service;
+package org.pricecomparator.service;
 
-import org.example.pricecomparator.dto.BasketRequest;
-import org.example.pricecomparator.dto.BasketResponse;
-import org.example.pricecomparator.model.Product;
+import org.pricecomparator.dto.BasketRequest;
+import org.pricecomparator.dto.BasketResponse;
+import org.pricecomparator.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

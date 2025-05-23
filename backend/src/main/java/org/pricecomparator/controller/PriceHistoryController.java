@@ -1,9 +1,9 @@
-package org.example.pricecomparator.controller;
+package org.pricecomparator.controller;
 
-import org.example.pricecomparator.service.PriceHistoryService;
+import org.pricecomparator.service.PriceHistoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.example.pricecomparator.model.Product;
+import org.pricecomparator.model.Product;
 
 import java.util.List;
 
