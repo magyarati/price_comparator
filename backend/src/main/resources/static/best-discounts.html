@@ -3,6 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Best Discounts</title>
+    <style>
+        #debugWindow {
+            margin-top: 40px;
+            background: #23272f;
+            color: #eee;
+            padding: 1em;
+            border-radius: 7px;
+            font-family: monospace;
+            font-size: 0.95em;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        #debugHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #debugClearBtn {
+            background: #444;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 3px 10px;
+            cursor: pointer;
+        }
+        #debugClearBtn:hover { background: #666; }
+    </style>
 </head>
 <body>
 <button onclick="window.location.href='index.html'" style="margin-bottom: 20px;">Home</button>
@@ -33,11 +60,39 @@
     <tbody></tbody>
 </table>
 
+<!-- Debug Window -->
+<div id="debugWindow">
+    <div id="debugHeader">
+        <strong>Debug Log</strong>
+        <button id="debugClearBtn" onclick="clearDebug()">Clear</button>
+    </div>
+    <div id="debugLog"></div>
+</div>
+
 <script>
+    function appendDebug(message) {
+        const log = document.getElementById('debugLog');
+        log.innerHTML += `<div>${message}</div>`;
+        // Auto-scroll
+        log.parentNode.scrollTop = log.parentNode.scrollHeight;
+    }
+
+    function clearDebug() {
+        document.getElementById('debugLog').innerHTML = '';
+    }
+
     function loadDiscounts() {
-        fetch('/api/discounts/best')
-            .then(response => response.json())
-            .then(data => populateTable(data));
+        const endpoint = '/api/discounts/best';
+        appendDebug(`<b>API CALL:</b> GET ${endpoint}`);
+        fetch(endpoint)
+            .then(response => {
+                appendDebug(`<b>RESPONSE STATUS:</b> ${response.status}`);
+                return response.json().then(data => {
+                    appendDebug(`<b>RESPONSE BODY:</b> <pre>${JSON.stringify(data, null, 2)}</pre>`);
+                    populateTable(data);
+                });
+            })
+            .catch(error => appendDebug(`<b>ERROR:</b> ${error}`));
     }
 
     function loadDiscountsByDate() {
@@ -46,9 +101,17 @@
             alert('Please select a date.');
             return;
         }
-        fetch('/api/discounts/best?date=' + date)
-            .then(response => response.json())
-            .then(data => populateTable(data));
+        const endpoint = `/api/discounts/best?date=${date}`;
+        appendDebug(`<b>API CALL:</b> GET ${endpoint}`);
+        fetch(endpoint)
+            .then(response => {
+                appendDebug(`<b>RESPONSE STATUS:</b> ${response.status}`);
+                return response.json().then(data => {
+                    appendDebug(`<b>RESPONSE BODY:</b> <pre>${JSON.stringify(data, null, 2)}</pre>`);
+                    populateTable(data);
+                });
+            })
+            .catch(error => appendDebug(`<b>ERROR:</b> ${error}`));
     }
 
     function changeDate(offset) {

@@ -53,6 +53,7 @@ export default function App() {
         productNames={productNames}
         products={products}
         onResult={setBasketResult}
+        date={dateFilter}
       />
       {basketResult && <BasketSummary data={basketResult} />}
 

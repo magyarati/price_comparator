@@ -1,77 +1,106 @@
 package org.pricecomparator.service;
 
+import org.pricecomparator.model.Product;
+import org.pricecomparator.model.Discount;
+import org.pricecomparator.repository.InMemoryProductRepository;
+import org.pricecomparator.repository.InMemoryDiscountRepository;
 import org.pricecomparator.dto.BasketRequest;
 import org.pricecomparator.dto.BasketResponse;
-import org.pricecomparator.model.Product;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class BasketService {
-    private final ProductService productService;
 
-    public BasketService(ProductService productService) {
-        this.productService = productService;
+    private final InMemoryProductRepository productRepository;
+    private final InMemoryDiscountRepository discountRepository;
+
+    public BasketService(InMemoryProductRepository productRepository, InMemoryDiscountRepository discountRepository) {
+        this.productRepository = productRepository;
+        this.discountRepository = discountRepository;
     }
 
-    /**
-     * Optimize the basket by assigning each requested item to the store offering the lowest
-     * effective unit price (= (price * (1 - discount/100)) / grammage).
-     */
-    public BasketResponse optimize(BasketRequest request) {
-        // 1) Fetch all products (today's data across all stores)
-        List<Product> allProducts;
-        try {
-            allProducts = productService.getAll(null, null);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to retrieve products", e);
+    public BasketResponse optimizeBasket(List<BasketRequest.Item> items, LocalDate date) {
+        if (date == null) {
+            date = LocalDate.now();
+        }
+        System.out.println("=== Basket Optimization Debug ===");
+        System.out.println("Optimizing basket for date: " + date);
+        System.out.println("Input items: " + items.size());
+        for (BasketRequest.Item item : items) {
+            System.out.println("- " + item.getProductName() + ", qty=" + item.getQuantity());
         }
 
-        // 2) Group products by lowercase name
-        Map<String, List<Product>> productsByName = allProducts.stream()
-                .collect(Collectors.groupingBy(p -> p.getName().toLowerCase()));
+        Map<String, List<BasketResponse.ItemSummary>> storeLists = new HashMap<>();
+        double minTotal = Double.MAX_VALUE;
 
-        BasketResponse response = new BasketResponse();
-        response.storeLists = new HashMap<>();
-        double totalCost = 0.0;
+        Set<String> allStores = productRepository.getAllStores();
+        System.out.println("All stores in repository: " + allStores);
 
-        // 3) For each requested basket item...
-        for (BasketRequest.Item item : request.getItems()) {
-            String key = item.getProductName().toLowerCase();
-            List<Product> candidates = productsByName.getOrDefault(key, Collections.emptyList());
-            if (candidates.isEmpty()) {
-                throw new IllegalArgumentException("No product found for: " + item.getProductName());
+        for (String store : allStores) {
+            double total = 0;
+            List<BasketResponse.ItemSummary> summaries = new ArrayList<>();
+            boolean allAvailable = true;
+            System.out.println("\nStore: " + store);
+
+            for (BasketRequest.Item reqItem : items) {
+                Optional<Product> prodOpt = productRepository.findByNameAndStoreAndDate(reqItem.getProductName(), store, date);
+                if (prodOpt.isEmpty()) {
+                    System.out.println("  Product NOT found: " + reqItem.getProductName() + " in " + store + " for date " + date);
+                    allAvailable = false;
+                    break;
+                }
+                Product prod = prodOpt.get();
+                System.out.println("  Product FOUND: " + prod.getName() + " (" + prod.getStore() + "), price=" + prod.getPrice());
+
+                double price = prod.getPrice();
+
+                // Use getName() for Discount as per your Discount class
+                Optional<Discount> discountOpt = discountRepository.findBestDiscount(prod.getName(), store, date);
+                double finalPrice = price;
+                if (discountOpt.isPresent()) {
+                    Discount disc = discountOpt.get();
+                    finalPrice = price * (1 - disc.getPercentage() / 100.0);
+                    System.out.println("    Discount applied: -" + disc.getPercentage() + "% -> finalPrice=" + finalPrice);
+                } else {
+                    System.out.println("    No discount applied.");
+                }
+                double cost = finalPrice * reqItem.getQuantity();
+                System.out.println("    Calculated cost for " + reqItem.getQuantity() + " units: " + cost);
+
+                total += cost;
+                BasketResponse.ItemSummary summary = new BasketResponse.ItemSummary();
+                summary.setName(prod.getName());
+                summary.setQuantity(reqItem.getQuantity());
+                summary.setUnitPrice(finalPrice);
+                summary.setCost(cost);
+                summaries.add(summary);
             }
-
-            // 4) Pick the candidate with the lowest effective unit price
-            Product best = candidates.stream()
-                    .min(Comparator.comparingDouble(p ->
-                            (p.getPrice() * (1 - p.getDiscount() / 100.0)) / p.getGrammage()
-                    ))
-                    .orElseThrow(() -> new IllegalStateException(
-                            "Failed to pick best product for " + item.getProductName()
-                    ));
-
-            // 5) Compute line cost and accumulate
-            double unitPrice = (best.getPrice() * (1 - best.getDiscount() / 100.0)) / best.getGrammage();
-            double lineCost = unitPrice * item.getQuantity();
-            totalCost += lineCost;
-
-            // 6) Build and add optimized item
-            BasketResponse.OptimizedItem opt = new BasketResponse.OptimizedItem();
-            opt.name = best.getName();
-            opt.quantity = item.getQuantity();
-            opt.unitPrice = unitPrice;
-            opt.cost = lineCost;
-
-            response.storeLists
-                    .computeIfAbsent(best.getStore(), k -> new ArrayList<>())
-                    .add(opt);
+            if (allAvailable) {
+                System.out.println("  All products available in " + store + ". Total: " + total);
+                storeLists.put(store, summaries);
+                if (total < minTotal) {
+                    minTotal = total;
+                }
+            } else {
+                System.out.println("  Not all products available in " + store + " for date " + date + ". Skipping store.");
+            }
         }
 
-        response.totalCost = totalCost;
-        return response;
+        BasketResponse resp = new BasketResponse();
+        resp.setTotalCost(minTotal == Double.MAX_VALUE ? 0 : minTotal);
+        // MAIN CHANGE: Show all stores where basket can be fulfilled
+        if (!storeLists.isEmpty()) {
+            resp.setStoreLists(storeLists);
+            System.out.println("\nSummary: Basket possible at " + storeLists.keySet());
+        } else {
+            resp.setStoreLists(Collections.emptyMap());
+            System.out.println("\nNo store can fulfill the basket for the selected date.");
+        }
+        resp.setDate(date);
+        System.out.println("=== End of Basket Optimization Debug ===\n");
+        return resp;
     }
 }

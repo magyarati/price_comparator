@@ -3,18 +3,29 @@ package org.pricecomparator.controller;
 import org.pricecomparator.dto.BasketRequest;
 import org.pricecomparator.dto.BasketResponse;
 import org.pricecomparator.service.BasketService;
+import org.pricecomparator.service.BasketSplitService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/basket")
 public class BasketController {
+
     private final BasketService basketService;
-    public BasketController(BasketService basketService) {
+    private final BasketSplitService basketSplitService; // <-- Declare this field
+
+    // ---- SINGLE constructor for both services! ----
+    public BasketController(BasketService basketService, BasketSplitService basketSplitService) {
         this.basketService = basketService;
+        this.basketSplitService = basketSplitService;
     }
 
     @PostMapping("/optimize")
-    public BasketResponse optimize(@RequestBody BasketRequest request) {
-        return basketService.optimize(request);
+    public BasketResponse optimizeBasket(@RequestBody BasketRequest request) {
+        return basketService.optimizeBasket(request.getItems(), request.getDate());
+    }
+
+    @PostMapping("/optimize-split")
+    public BasketResponse optimizeBasketSplit(@RequestBody BasketRequest request) {
+        return basketSplitService.optimizeBasketSplit(request.getItems(), request.getDate());
     }
 }

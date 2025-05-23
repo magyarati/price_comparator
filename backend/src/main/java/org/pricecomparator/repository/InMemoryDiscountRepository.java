@@ -7,8 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -67,4 +70,15 @@ public class InMemoryDiscountRepository implements DiscountRepository {
     public List<Discount> getAllDiscounts() {
         return discounts;
     }
+
+    @Override
+    public Optional<Discount> findBestDiscount(String productName, String store, LocalDate date) {
+        return discounts.stream()
+                .filter(d -> d.getProductName().equalsIgnoreCase(productName))
+                .filter(d -> d.getStore().equalsIgnoreCase(store))
+                .filter(d -> d.getValidFrom() != null && d.getValidUntil() != null)
+                .filter(d -> !date.isBefore(d.getValidFrom()) && !date.isAfter(d.getValidUntil()))
+                .max(Comparator.comparing(Discount::getPercentage));
+    }
+
 }

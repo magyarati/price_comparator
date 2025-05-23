@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function BasketBuilder({ productNames, products, onResult }) {
+export default function BasketBuilder({ productNames, products, onResult, date }) {
   const [lines, setLines] = useState([{ name: '', qty: '' }]);
 
   const addLine = () => setLines(prev => [...prev, { name: '', qty: '' }]);
+
+  // New: Remove line by index
+  const removeLine = (index) => {
+    setLines(prev => prev.length > 1 ? prev.filter((_, i) => i !== index) : prev);
+  };
 
   const updateLine = (index, field, value) => {
     const updated = [...lines];
@@ -18,7 +23,7 @@ export default function BasketBuilder({ productNames, products, onResult }) {
       quantity: parseFloat(line.qty) || 0,
     }));
     axios
-      .post('/api/basket/optimize', { items })
+      .post('/api/basket/optimize', { items, date })
       .then(response => onResult(response.data))
       .catch(console.error);
   };
@@ -26,7 +31,6 @@ export default function BasketBuilder({ productNames, products, onResult }) {
   return (
     <div className="mb-4">
       {lines.map((line, i) => {
-        // Find product by name for unit display
         const prod = products.find(p => p.name === line.name);
         const unit = prod ? prod.unit : '';
         return (
@@ -54,7 +58,20 @@ export default function BasketBuilder({ productNames, products, onResult }) {
               value={line.qty}
               onChange={e => updateLine(i, 'qty', e.target.value)}
             />
-            <span className="text-gray-700 min-w-[40px]">{unit}</span>
+            <span className="text-gray-700 min-w-[40px]">
+              {prod ? `buc ${prod.grammage} ${prod.unit}` : ''}
+            </span>
+            {/* Add remove button (hide if only 1 line) */}
+            {lines.length > 1 && (
+              <button
+                onClick={() => removeLine(i)}
+                className="text-red-600 font-bold px-2"
+                title="Remove line"
+                type="button"
+              >
+                &times;
+              </button>
+            )}
           </div>
         );
       })}

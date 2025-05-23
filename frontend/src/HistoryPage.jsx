@@ -9,7 +9,7 @@ export default function HistoryPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <h1>Product Price History</h1>
+      <h1>Dynamic Price History Graphs</h1>
       {product ? (
         <PriceHistoryChart product={product} />
       ) : (

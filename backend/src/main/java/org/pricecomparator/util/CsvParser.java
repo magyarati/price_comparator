@@ -15,7 +15,6 @@ public class CsvParser {
     private static final Logger logger = LoggerFactory.getLogger(CsvParser.class);
 
     public static class DiscountRecord {
-
         private final String id;
         private final String name;
         private final String brand;
@@ -51,7 +50,10 @@ public class CsvParser {
         public double getPercentage() { return percentage; }
     }
 
-    public static List<Product> parsePriceCsv(String path, String store)
+    /**
+     * Parses a price CSV and sets validFrom to the given priceDate.
+     */
+    public static List<Product> parsePriceCsv(String path, String store, LocalDate priceDate)
             throws IOException, CsvValidationException {
         List<Product> list = new ArrayList<>();
         try (CSVReader r = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))
@@ -62,14 +64,14 @@ public class CsvParser {
             if ((row = r.readNext()) != null && !isDataRow(row)) {
                 logger.info("Skipping header: {}", Arrays.toString(row));
             } else if (row != null) {
-                parsePriceRow(row, store, list);
+                parsePriceRow(row, store, priceDate, list);
             }
             while ((row = r.readNext()) != null) {
                 if (!isDataRow(row)) {
                     logger.warn("Skipping malformed price row: {}", Arrays.toString(row));
                     continue;
                 }
-                parsePriceRow(row, store, list);
+                parsePriceRow(row, store, priceDate, list);
             }
         }
         return list;
@@ -109,13 +111,15 @@ public class CsvParser {
         return list;
     }
 
-
     private static boolean isDataRow(String[] row) {
         // expect 8 cols: id;name;category;brand;qty;unit;price;currency
         return row.length == 8 && isDouble(row[4]) && isDouble(row[6]);
     }
 
-    private static void parsePriceRow(String[] row, String store, List<Product> list) {
+    /**
+     * Assigns priceDate as validFrom. validUntil is set later in repository.
+     */
+    private static void parsePriceRow(String[] row, String store, LocalDate priceDate, List<Product> list) {
         try {
             Product p = new Product();
             p.setStore(store);
@@ -126,6 +130,7 @@ public class CsvParser {
             p.setUnit(row[5]);
             p.setPrice(Double.parseDouble(row[6]));
             p.setCurrency(row[7]);
+            p.setValidFrom(priceDate); // Set validity start from filename!
             list.add(p);
         } catch (NumberFormatException e) {
             logger.warn("Number format error parsing price row {}: {}", Arrays.toString(row), e.getMessage());

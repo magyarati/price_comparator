@@ -32,38 +32,46 @@ public class ProductService {
                     .sorted().collect(Collectors.toList());
             if (dates.isEmpty()) continue;
 
-            LocalDate useDate = dates.stream().filter(d -> !d.isAfter(requested))
-                    .max(LocalDate::compareTo).orElse(dates.get(0));
-            LocalDate next = dates.stream().filter(d -> d.isAfter(useDate))
-                    .findFirst().orElse(useDate.plusYears(1));
-            LocalDate validUntil = next.minusDays(1);
+            // Find all price periods up to the requested date
+            for (int i = 0; i < dates.size(); i++) {
+                LocalDate useDate = dates.get(i);
+                if (useDate.isAfter(requested)) break; // only load up to requested date
 
-            String priceFile = Paths.get(dataPath, s + "_" + useDate + ".csv").toString();
-            List<Product> prices = CsvParser.parsePriceCsv(priceFile, s);
+                LocalDate next = (i + 1 < dates.size()) ? dates.get(i + 1) : useDate.plusYears(1);
+                LocalDate validUntil = next.minusDays(1);
 
-            List<CsvParser.DiscountRecord> discounts = new ArrayList<>();
-            Files.list(dir)
-                    .map(Path::getFileName).map(Path::toString)
-                    .filter(name -> name.startsWith(s + "_discounts_") && name.endsWith(".csv"))
-                    .forEach(name -> {
-                        try {
-                            discounts.addAll(CsvParser.parseDiscountCsv(Paths.get(dataPath, name).toString()));
-                        } catch (IOException | CsvValidationException e) {
-                            // log or handle appropriately
-                        }
-                    });
+                String priceFile = Paths.get(dataPath, s + "_" + useDate + ".csv").toString();
+                List<Product> prices = CsvParser.parsePriceCsv(priceFile, s, useDate);
 
-            for (Product p : prices) {
-                double pct = discounts.stream()
-                        .filter(r -> r.getName().equals(p.getName()))
-                        .filter(r -> !requested.isBefore(r.getFrom()) && !requested.isAfter(r.getTo()))
-                        .mapToDouble(CsvParser.DiscountRecord::getPercentage).findFirst().orElse(0.0);
-                p.setDiscount(pct);
-                p.setValidFrom(useDate);
-                p.setValidUntil(validUntil);
+                List<CsvParser.DiscountRecord> discounts = new ArrayList<>();
+                Files.list(dir)
+                        .map(Path::getFileName).map(Path::toString)
+                        .filter(name -> name.startsWith(s + "_discounts_") && name.endsWith(".csv"))
+                        .forEach(name -> {
+                            try {
+                                discounts.addAll(CsvParser.parseDiscountCsv(Paths.get(dataPath, name).toString()));
+                            } catch (IOException | CsvValidationException e) {
+                                // log or handle appropriately
+                            }
+                        });
+
+                for (Product p : prices) {
+                    double pct = discounts.stream()
+                            .filter(r -> r.getName().equalsIgnoreCase(p.getName()))
+                            .filter(r -> !requested.isBefore(r.getFrom()) && !requested.isAfter(r.getTo()))
+                            .mapToDouble(CsvParser.DiscountRecord::getPercentage).findFirst().orElse(0.0);
+                    p.setDiscount(pct);
+                    p.setValidFrom(useDate);
+                    p.setValidUntil(validUntil);
+                }
+
+                // Only add products valid for the requested date
+                for (Product p : prices) {
+                    if (!requested.isBefore(p.getValidFrom()) && !requested.isAfter(p.getValidUntil())) {
+                        result.add(p);
+                    }
+                }
             }
-
-            result.addAll(prices);
         }
         return result;
     }
@@ -78,7 +86,7 @@ public class ProductService {
                         LocalDate date = LocalDate.parse(filename.substring((store + "_").length(), filename.length() - 4));
                         List<Product> list;
                         try {
-                            list = CsvParser.parsePriceCsv(Paths.get(dataPath, filename).toString(), store);
+                            list = CsvParser.parsePriceCsv(Paths.get(dataPath, filename).toString(), store, date);
                         } catch (IOException | CsvValidationException e) {
                             throw new RuntimeException("Failed to parse CSV file: " + filename, e);
                         }
