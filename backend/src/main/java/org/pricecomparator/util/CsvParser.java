@@ -24,6 +24,7 @@ public class CsvParser {
         private final LocalDate from;
         private final LocalDate to;
         private final double percentage;
+        private String store; // <-- ADDED FIELD
 
         public DiscountRecord(String id, String name, String brand, double quantity, String unit, String category,
                               LocalDate from, LocalDate to, double percentage) {
@@ -48,6 +49,8 @@ public class CsvParser {
         public LocalDate getFrom() { return from; }
         public LocalDate getTo() { return to; }
         public double getPercentage() { return percentage; }
+        public String getStore() { return store; } // <-- ADDED GETTER
+        public void setStore(String store) { this.store = store; } // <-- ADDED SETTER
     }
 
     /**
@@ -77,6 +80,7 @@ public class CsvParser {
         return list;
     }
 
+    // ORIGINAL: parses without store
     public static List<DiscountRecord> parseDiscountCsv(String path)
             throws IOException, CsvValidationException {
         List<DiscountRecord> list = new ArrayList<>();
@@ -111,14 +115,21 @@ public class CsvParser {
         return list;
     }
 
+    // OVERLOAD: parses and sets store for each DiscountRecord
+    public static List<DiscountRecord> parseDiscountCsv(String path, String store)
+            throws IOException, CsvValidationException {
+        List<DiscountRecord> list = parseDiscountCsv(path);
+        for (DiscountRecord r : list) {
+            r.setStore(store);
+        }
+        return list;
+    }
+
     private static boolean isDataRow(String[] row) {
         // expect 8 cols: id;name;category;brand;qty;unit;price;currency
         return row.length == 8 && isDouble(row[4]) && isDouble(row[6]);
     }
 
-    /**
-     * Assigns priceDate as validFrom. validUntil is set later in repository.
-     */
     private static void parsePriceRow(String[] row, String store, LocalDate priceDate, List<Product> list) {
         try {
             Product p = new Product();
@@ -130,7 +141,7 @@ public class CsvParser {
             p.setUnit(row[5]);
             p.setPrice(Double.parseDouble(row[6]));
             p.setCurrency(row[7]);
-            p.setValidFrom(priceDate); // Set validity start from filename!
+            p.setValidFrom(priceDate);
             list.add(p);
         } catch (NumberFormatException e) {
             logger.warn("Number format error parsing price row {}: {}", Arrays.toString(row), e.getMessage());

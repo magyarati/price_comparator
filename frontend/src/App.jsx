@@ -9,32 +9,33 @@ export default function App() {
   const [store, setStore] = useState('');
   const [selectedName, setSelectedName] = useState('');
   const [brandFilter, setBrandFilter] = useState('');
-  const [dateFilter, setDateFilter] = useState('');
+  const [dateFilter, setDateFilter] = useState(() => {
+    const today = new Date();
+    return today.toISOString().slice(0, 10);
+  });
   const [basketResult, setBasketResult] = useState(null);
 
   useEffect(() => {
     const params = new URLSearchParams();
-    if (store) params.append('store', store);
+    if (store) params.append('stores', store);
+    if (selectedName) params.append('names', selectedName);
+    if (brandFilter) params.append('brands', brandFilter);
     if (dateFilter) params.append('date', dateFilter);
 
     axios
       .get(`/api/products?${params.toString()}`)
       .then(res => setProducts(res.data))
       .catch(console.error);
-  }, [store, dateFilter]);
+  }, [store, selectedName, brandFilter, dateFilter]);
 
   function handleShowHistory(product) {
     window.location.href = `/history.html?name=${encodeURIComponent(product.name)}&store=${encodeURIComponent(product.store)}`;
   }
 
+  // Get available options for the filter dropdowns from the products already fetched
+  const storeNames = Array.from(new Set(products.map(p => p.store))).sort();
   const productNames = Array.from(new Set(products.map(p => p.name))).sort();
   const brandNames = Array.from(new Set(products.map(p => p.brand))).sort();
-
-  // Apply all filters
-  const filtered = products.filter(p =>
-    (!selectedName || p.name === selectedName) &&
-    (!brandFilter || p.brand === brandFilter)
-  );
 
   function getAdjustedDate(base, offsetDays) {
     const date = base ? new Date(base) : new Date();
@@ -67,7 +68,7 @@ export default function App() {
           onChange={e => setStore(e.target.value)}
         >
           <option value="">All stores</option>
-          {Array.from(new Set(products.map(p => p.store))).sort().map(storeName => (
+          {storeNames.map(storeName => (
             <option key={storeName} value={storeName}>{storeName}</option>
           ))}
         </select>
@@ -116,7 +117,7 @@ export default function App() {
         </button>
       </div>
 
-      <ProductList products={filtered} onShowHistory={handleShowHistory} />
+      <ProductList products={products} onShowHistory={handleShowHistory} />
     </div>
   );
 }

@@ -25,15 +25,18 @@ public class ProductController {
         this.basketSplitService = basketSplitService;
     }
 
-    // Endpoint to get all products, optionally filtered by date and store
+    // Extended: supports multiple filters (store, name, brand, date)
     @GetMapping
-    public List<Product> getAll(@RequestParam(required = false) String date,
-                                @RequestParam(required = false) String store) {
-        try {
-            return productService.getAll(date, store);
-        } catch (IOException | CsvValidationException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error reading product data", e);
-        }
+    public List<Product> getAll(
+            @RequestParam(required = false) List<String> stores,
+            @RequestParam(required = false) List<String> names,
+            @RequestParam(required = false) List<String> brands,
+            @RequestParam(required = false) String date, // still allows single date
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate
+    ) {
+            return productService.getAllFiltered(stores, names, brands, date, startDate, endDate);
+
     }
 
     // Flexible price history endpoint for both React and HTML

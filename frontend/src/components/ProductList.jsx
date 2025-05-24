@@ -20,14 +20,14 @@ export default function ProductList({ products, onShowHistory }) {
       </thead>
       <tbody>
         {products.map((p, i) => {
-          const discountedPrice = (p.price * (1 - p.discount / 100)).toFixed(2);
+          const discountedPrice = (p.price * (1 - (p.discount || 0) / 100)).toFixed(2);
           return (
             <tr key={i}>
               <td className="border p-1">{p.store}</td>
               <td className="border p-1">{p.name}</td>
               <td className="border p-1">{p.category}</td>
               <td className="border p-1">{p.brand}</td>
-              <td className="border p-1">{p.grammage}</td>
+              <td className="border p-1">{p.grammage ?? p.quantity}</td>
               <td className="border p-1">{p.unit}</td>
               <td className="border p-1">{p.price}</td>
               <td className="border p-1">{p.currency}</td>

@@ -7,8 +7,14 @@ A Java-based backend application that compares grocery product prices across maj
 ## ✨ Features
 
 - 🛒 **Basket Optimizer**  
-  Splits a shopping list across stores to minimize total cost.
-
+  Splits a shopping list across stores to minimize total cost. 
+  Highlights value per unit (e.g., price per kg/liter) to surface the best deals, even across different package sizes.
+- 📉 **Best Discounts**  
+  View products with the highest current percentage discounts across all tracked stores for any given day.
+- 🆕 **New Discounts**  
+  See all discounts newly introduced in the last 24 hours.
+- 📈 **Dynamic Price History Graphs**  
+  Track price trends over time for each product, with the ability to filter by store, product category, or brand.
 
 ---
 
@@ -47,7 +53,12 @@ price-comparator/
 │   ├── package.json
 │   ├── package-lock.json
 │   ├── public/
-│   │   └── index.html
+│   │   ├── index.html
+│   │   ├── best-discounts.html
+│   │   ├── history.html
+│   │   ├── new-discounts.html
+│   │   ├── price-chart.html
+│   │   └── split-basket.html
 │   └── src/
 │       ├── index.js
 │       ├── App.jsx
@@ -107,11 +118,20 @@ This creates:
 
 ---
 
-## 📊 API Overview (Example)
+## 📊 API Overview
 
-| Method | Endpoint                   | Description                             |
-|--------|----------------------------|-----------------------------------------|
-| GET    | `/api/products`            | List all products                       |
+| Method | Endpoint                                         | Description                                                  |
+|--------|--------------------------------------------------|--------------------------------------------------------------|
+| GET    | `/api/products`                                  | List all products                                            |
+| GET    | `/api/discounts`                                 | List all discounts                                           |
+| POST   | `/api/basket/optimize`                           | Optimize basket for the cheapest option in a single store    |
+| POST   | `/api/basket/optimize?allStores=true`            | Optimize basket for all stores, show best/winner store       |
+| POST   | `/api/basket/optimize-split`                     | Optimize split basket (can divide list across multiple       |
+|        |                                                  | stores for lowest total cost)                                |
+| GET    | `/api/discounts/best`                            | View products with the best (highest %) discounts overall    |
+|        |                                                  | or by date                                                   |
+| GET    | `/api/discounts/new`                             | View new discounts added in the last 24 hours                |
+| GET    | `/api/products/history?name=PRODUCT_NAME`        | View price history for a given product                       |
 
 ---
 
@@ -123,17 +143,20 @@ Place CSVs in the `backend/data/` directory. Supported formats include:
 - `kaufland_discounts_2025-05-08.csv`
 - `profi_2025-05-08.csv`
 
-> Format columns for price lists: `product_id;product_name;category;brand;grammage;unit;price;currency`
-> Format columns for discounts: `product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount`
+**Product price list format:**  
+`product_id;product_name;category;brand;grammage;unit;price;currency`
 
+**Discount list format:**  
+`product_id;product_name;brand;package_quantity;package_unit;product_category;from_date;to_date;percentage_of_discount`
 
 ---
 
 ## 📌 Assumptions
 
-- Product names are normalized across stores for comparison.
-- Price history is reconstructed from multiple daily CSV snapshots.
-- Discounts are matched by `product_name`.
+- Product names are normalized across stores for accurate comparison.
+- Price history is reconstructed from daily CSV snapshots.
+- Discounts are matched by product name.
+- Unit price comparisons (price per kg/liter/etc.) enable best-value recommendations.
 
 ---
 
@@ -145,4 +168,8 @@ MIT License. Free to use, modify, and extend.
 
 ## 👤 Author
 
-Developed by [Attila Magyar] – for demo, testing, and practical portfolio purposes.
+Developed by [Attila Magyar] – for demo, testing, and portfolio purposes.
+
+---
+
+*Feel free to contribute, open issues, or fork for your own projects!*

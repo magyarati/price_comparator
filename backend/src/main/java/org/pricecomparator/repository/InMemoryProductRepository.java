@@ -17,11 +17,26 @@ public class InMemoryProductRepository implements ProductRepository {
     private final List<Product> products = new ArrayList<>();
 
     public InMemoryProductRepository() {
-        // Map of key "store|name" -> list of Product price segments
+        loadAll();
+    }
+
+    /**
+     * Reloads products and discounts from the CSV files.
+     * Thread-safe for concurrent reloads.
+     */
+    public synchronized void reload() {
+        products.clear();
+        loadAll();
+    }
+
+    /**
+     * Loads all products and applies discounts.
+     * (You can call this in constructor and in reload())
+     */
+    private void loadAll() {
         Map<String, List<Product>> productsByKey = new HashMap<>();
         try {
             Path dir = Paths.get("data");
-            // Only .csv files not containing 'discount'
             List<Path> files = Files.list(dir)
                     .filter(f -> f.getFileName().toString().endsWith(".csv"))
                     .filter(f -> !f.getFileName().toString().toLowerCase().contains("discount"))
@@ -32,7 +47,7 @@ public class InMemoryProductRepository implements ProductRepository {
                 String filename = path.getFileName().toString();
                 int sep = filename.indexOf('_');
                 if (sep == -1) continue;
-                String store = filename.substring(0, sep);
+                String store = filename.substring(0, sep).toLowerCase();
                 LocalDate priceDate = extractDateFromFilename(filename);
 
                 List<Product> loaded = CsvParser.parsePriceCsv(path.toString(), store, priceDate);
@@ -41,27 +56,62 @@ public class InMemoryProductRepository implements ProductRepository {
                     productsByKey.computeIfAbsent(key, k -> new ArrayList<>()).add(p);
                 }
             }
-            // Now set validUntil for each product price segment
+
+            // Set validUntil for each price segment
+            List<Product> loadedProducts = new ArrayList<>();
             for (List<Product> group : productsByKey.values()) {
                 group.sort(Comparator.comparing(Product::getValidFrom));
                 for (int i = 0; i < group.size(); i++) {
                     Product p = group.get(i);
                     if (i + 1 < group.size()) {
-                        // valid until day before next segment
                         p.setValidUntil(group.get(i + 1).getValidFrom().minusDays(1));
                     } else {
-                        // valid for 1 year if no newer price
                         p.setValidUntil(p.getValidFrom().plusYears(1));
                     }
-                    products.add(p);
+                    loadedProducts.add(p);
                 }
             }
+
+            // --- Load discounts with correct store assignment ---
+            List<CsvParser.DiscountRecord> allDiscounts = new ArrayList<>();
+            List<Path> discountFiles = Files.list(dir)
+                    .filter(f -> f.getFileName().toString().toLowerCase().contains("discount"))
+                    .filter(f -> f.getFileName().toString().endsWith(".csv"))
+                    .collect(Collectors.toList());
+            for (Path dfile : discountFiles) {
+                String fname = dfile.getFileName().toString();
+                int sep = fname.indexOf('_');
+                String store = (sep == -1) ? "" : fname.substring(0, sep).toLowerCase();
+                allDiscounts.addAll(CsvParser.parseDiscountCsv(dfile.toString(), store));
+            }
+
+            // --- Apply discount to each product ---
+            for (Product p : loadedProducts) {
+                Optional<CsvParser.DiscountRecord> discountOpt = allDiscounts.stream()
+                        .filter(d -> d.getName().equalsIgnoreCase(p.getName()))
+                        .filter(d -> d.getStore() == null || d.getStore().equalsIgnoreCase(p.getStore()))
+                        // If you want to match by brand, category, or unit, add more filters here
+                        .filter(d -> {
+                            LocalDate pFrom = p.getValidFrom(), pTo = p.getValidUntil();
+                            LocalDate dFrom = d.getFrom(), dTo = d.getTo();
+                            return !pTo.isBefore(dFrom) && !pFrom.isAfter(dTo);
+                        })
+                        .max(Comparator.comparing(CsvParser.DiscountRecord::getPercentage));
+
+                if (discountOpt.isPresent()) {
+                    p.setDiscount(discountOpt.get().getPercentage());
+                } else {
+                    p.setDiscount(0.0);
+                }
+            }
+
+            products.addAll(loadedProducts);
+
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
     }
 
-    // Helper to extract date from filename like "kaufland_2025-05-01.csv"
     private static LocalDate extractDateFromFilename(String filename) {
         int sep = filename.indexOf('_');
         int dot = filename.lastIndexOf('.');
@@ -69,9 +119,10 @@ public class InMemoryProductRepository implements ProductRepository {
             String dateStr = filename.substring(sep + 1, dot);
             return LocalDate.parse(dateStr);
         }
-        // fallback
         return LocalDate.now();
     }
+
+    // ------------- All other repository methods unchanged -------------
 
     @Override
     public Set<String> getAllStores() {
@@ -93,7 +144,7 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public List<Product> getAllProducts() {
-        return new ArrayList<>(products); // Defensive copy
+        return new ArrayList<>(products);
     }
 
     @Override
