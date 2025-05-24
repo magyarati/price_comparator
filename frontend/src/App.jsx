@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Filters from './components/Filters';
 import BasketBuilder from './components/BasketBuilder';
 import BasketSummary from './components/BasketSummary';
 import ProductList from './components/ProductList';

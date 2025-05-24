@@ -23,14 +23,14 @@ public class BasketSplitService {
     }
 
     /**
-     * Optimizes a basket by buying each product from the store with the lowest price.
+     * Optimizes a basket by buying each product from the store with the lowest UNIT price.
      * Returns a map of shopping lists per store.
      */
     public BasketResponse optimizeBasketSplit(List<BasketRequest.Item> items, LocalDate date) {
         if (date == null) {
             date = LocalDate.now();
         }
-        System.out.println("\n=== Split Basket Debug ===");
+        System.out.println("\n=== Split Basket Debug (Best UNIT Price) ===");
         System.out.println("Optimizing split basket for date: " + date);
         System.out.println("Basket items:");
         for (BasketRequest.Item reqItem : items) {
@@ -40,14 +40,18 @@ public class BasketSplitService {
         Map<String, List<BasketResponse.ItemSummary>> storeLists = new HashMap<>();
         double totalCost = 0;
 
+        Set<String> allStores = productRepository.getAllStores();
+        System.out.println("All stores in repository: " + allStores);
+
         for (BasketRequest.Item reqItem : items) {
-            double bestPrice = Double.MAX_VALUE;
+            double bestUnitPrice = Double.MAX_VALUE;
             String bestStore = null;
             Product bestProduct = null;
+            double bestFinalPackPrice = Double.MAX_VALUE;
 
             System.out.println("\nProduct: " + reqItem.getProductName());
 
-            for (String store : productRepository.getAllStores()) {
+            for (String store : allStores) {
                 Optional<Product> prodOpt = productRepository.findByNameAndStoreAndDate(reqItem.getProductName(), store, date);
                 if (prodOpt.isEmpty()) {
                     System.out.println("  NOT found in " + store + " for date " + date);
@@ -61,29 +65,66 @@ public class BasketSplitService {
                 if (discountOpt.isPresent()) {
                     Discount disc = discountOpt.get();
                     finalPrice = price * (1 - disc.getPercentage() / 100.0);
-                    System.out.printf("  Found in %s: base price=%.2f, discount=%.2f%%, final price=%.2f\n",
+                    System.out.printf("  Found in %s: base price=%.2f, discount=%.2f%%, final pack price=%.2f\n",
                             store, price, disc.getPercentage(), finalPrice);
                 } else {
                     System.out.printf("  Found in %s: price=%.2f, no discount\n", store, price);
                 }
-                if (finalPrice < bestPrice) {
-                    bestPrice = finalPrice;
+
+                // Compute unit price
+                double grammage = prod.getGrammage();
+                String unit = prod.getUnit();
+                if (grammage <= 0) {
+                    System.out.printf("    [WARN] Product %s in %s has non-positive grammage: %.2f %s\n", prod.getName(), store, grammage, unit);
+                    continue;
+                }
+                double unitPrice = finalPrice / grammage;
+                System.out.printf("    => Unit price at %s: %.4f/%s (%.2f per pack, %.2f per %.2f %s)\n",
+                        store, unitPrice, unit, finalPrice, grammage, grammage, unit);
+
+                if (unitPrice < bestUnitPrice) {
+                    bestUnitPrice = unitPrice;
                     bestStore = store;
                     bestProduct = prod;
+                    bestFinalPackPrice = finalPrice;
                 }
             }
 
             if (bestStore != null && bestProduct != null) {
-                double cost = bestPrice * reqItem.getQuantity();
-                totalCost += cost;
+                double packageQuantity = bestProduct.getGrammage();
+                String packageUnit = bestProduct.getUnit();
+                double packagePrice = bestFinalPackPrice;
+                double unitPrice = packagePrice / packageQuantity;
+                double quantity = reqItem.getQuantity();
+                double cost = packagePrice * quantity;
+                String currency = bestProduct.getCurrency();
 
-                System.out.printf("  => Best option: %s at %.2f/unit, cost for %.2f: %.2f\n", bestStore, bestPrice, reqItem.getQuantity(), cost);
+                // Normalize unit price
+                double normalizedUnitPrice = unitPrice;
+                String normalizedUnit = packageUnit;
+                if ("g".equalsIgnoreCase(packageUnit)) {
+                    normalizedUnitPrice = unitPrice * 1000;
+                    normalizedUnit = "kg";
+                }
+                if ("ml".equalsIgnoreCase(packageUnit)) {
+                    normalizedUnitPrice = unitPrice * 1000;
+                    normalizedUnit = "l";
+                }
+
+                totalCost += cost;
 
                 BasketResponse.ItemSummary summary = new BasketResponse.ItemSummary();
                 summary.setName(bestProduct.getName());
-                summary.setQuantity(reqItem.getQuantity());
-                summary.setUnitPrice(bestPrice);
+                summary.setQuantity(quantity);
+                summary.setPackageQuantity(packageQuantity);
+                summary.setPackageUnit(packageUnit);
+                summary.setPackagePrice(packagePrice);
+                summary.setUnitPrice(normalizedUnitPrice);  // <<--- use normalized
+                summary.setUnit(normalizedUnit);            // <<--- use normalized
                 summary.setCost(cost);
+                summary.setCurrency(currency);
+                summary.setCategory(bestProduct.getCategory());
+                summary.setBrand(bestProduct.getBrand());
 
                 storeLists.computeIfAbsent(bestStore, k -> new ArrayList<>()).add(summary);
             } else {

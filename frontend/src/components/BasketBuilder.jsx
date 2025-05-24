@@ -3,10 +3,11 @@ import axios from 'axios';
 
 export default function BasketBuilder({ productNames, products, onResult, date }) {
   const [lines, setLines] = useState([{ name: '', qty: '' }]);
+  const [loading, setLoading] = useState(false);
 
   const addLine = () => setLines(prev => [...prev, { name: '', qty: '' }]);
 
-  // New: Remove line by index
+  // Remove line by index
   const removeLine = (index) => {
     setLines(prev => prev.length > 1 ? prev.filter((_, i) => i !== index) : prev);
   };
@@ -22,17 +23,31 @@ export default function BasketBuilder({ productNames, products, onResult, date }
       productName: line.name,
       quantity: parseFloat(line.qty) || 0,
     }));
+    setLoading(true);
     axios
       .post('/api/basket/optimize', { items, date })
       .then(response => onResult(response.data))
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  };
+
+  // NEW: Optimize Split Basket
+  const optimizeSplit = () => {
+    const items = lines.map(line => ({
+      productName: line.name,
+      quantity: parseFloat(line.qty) || 0,
+    }));
+    setLoading(true);
+    axios
+      .post('/api/basket/optimize-split', { items, date })
+      .then(response => onResult(response.data))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   };
 
   return (
     <div className="mb-4">
       {lines.map((line, i) => {
-        const prod = products.find(p => p.name === line.name);
-        const unit = prod ? prod.unit : '';
         return (
           <div key={i} className="flex items-center space-x-2 mb-2">
             <select
@@ -41,27 +56,20 @@ export default function BasketBuilder({ productNames, products, onResult, date }
               onChange={e => updateLine(i, 'name', e.target.value)}
             >
               <option value="">Select product</option>
-              {productNames.map(name => {
-                const p = products.find(pr => pr.name === name);
-                const optUnit = p ? p.unit : '';
-                return (
-                  <option key={name} value={name}>
-                    {name}{optUnit ? ` (${optUnit})` : ''}
-                  </option>
-                );
-              })}
+              {productNames.map(name => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
             </select>
             <input
               type="number"
               className="border p-1 w-20"
-              placeholder="Qty"
+              placeholder="Quantity"
               value={line.qty}
               onChange={e => updateLine(i, 'qty', e.target.value)}
             />
-            <span className="text-gray-700 min-w-[40px]">
-              {prod ? `buc ${prod.grammage} ${prod.unit}` : ''}
-            </span>
-            {/* Add remove button (hide if only 1 line) */}
+            {/* Remove button (hide if only 1 line) */}
             {lines.length > 1 && (
               <button
                 onClick={() => removeLine(i)}
@@ -78,8 +86,19 @@ export default function BasketBuilder({ productNames, products, onResult, date }
       <button onClick={addLine} className="mr-2 px-3 py-1 bg-blue-600 text-white rounded">
         + Line
       </button>
-      <button onClick={optimize} className="px-3 py-1 bg-green-600 text-white rounded">
+      <button
+        onClick={optimize}
+        className="px-3 py-1 bg-green-600 text-white rounded mr-2"
+        disabled={loading}
+      >
         Optimize Basket
+      </button>
+      <button
+        onClick={optimizeSplit}
+        className="px-3 py-1 bg-green-700 text-white rounded"
+        disabled={loading}
+      >
+        Optimize Split Basket
       </button>
     </div>
   );

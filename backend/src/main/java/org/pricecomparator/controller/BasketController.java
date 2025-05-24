@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class BasketController {
 
     private final BasketService basketService;
-    private final BasketSplitService basketSplitService; // <-- Declare this field
+    private final BasketSplitService basketSplitService;
 
     // ---- SINGLE constructor for both services! ----
     public BasketController(BasketService basketService, BasketSplitService basketSplitService) {
@@ -20,8 +20,11 @@ public class BasketController {
     }
 
     @PostMapping("/optimize")
-    public BasketResponse optimizeBasket(@RequestBody BasketRequest request) {
-        return basketService.optimizeBasket(request.getItems(), request.getDate());
+    public BasketResponse optimizeBasket(
+            @RequestBody BasketRequest request,
+            @RequestParam(value = "allStores", defaultValue = "false") boolean allStores
+    ) {
+        return basketService.optimizeBasket(request.getItems(), request.getDate(), allStores);
     }
 
     @PostMapping("/optimize-split")
