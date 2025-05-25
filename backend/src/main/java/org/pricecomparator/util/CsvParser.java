@@ -24,7 +24,7 @@ public class CsvParser {
         private final LocalDate from;
         private final LocalDate to;
         private final double percentage;
-        private String store; // <-- ADDED FIELD
+        private String store;
 
         public DiscountRecord(String id, String name, String brand, double quantity, String unit, String category,
                               LocalDate from, LocalDate to, double percentage) {
@@ -80,7 +80,7 @@ public class CsvParser {
         return list;
     }
 
-    // ORIGINAL: parses without store
+
     public static List<DiscountRecord> parseDiscountCsv(String path)
             throws IOException, CsvValidationException {
         List<DiscountRecord> list = new ArrayList<>();

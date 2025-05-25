@@ -122,7 +122,6 @@ public class InMemoryProductRepository implements ProductRepository {
         return LocalDate.now();
     }
 
-    // ------------- All other repository methods unchanged -------------
 
     @Override
     public Set<String> getAllStores() {

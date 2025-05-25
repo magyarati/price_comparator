@@ -84,7 +84,7 @@ public class NewDiscountDto {
         return s == null ? "" : s;
     }
 
-    // --- Getters and Setters (unchanged) ---
+    // --- Getters and Setters ---
 
     public String getStore() {
         return store;
