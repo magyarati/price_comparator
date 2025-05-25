@@ -84,13 +84,15 @@ price-comparator/
 
 - Java 17+
 - Gradle (or use the provided wrapper)
+- Node.js & npm
 
 ### ▶️ Run the Backend
 
 ```bash
 from project root folder
-./gradlew build
-./gradlew bootRun
+cd ~/price_comparator/
+./gradlew clean build 
+./gradlew :backend:bootRun
 ```
 
 
@@ -120,18 +122,24 @@ This creates:
 
 ## 📊 API Overview
 
-| Method | Endpoint                                         | Description                                                  |
-|--------|--------------------------------------------------|--------------------------------------------------------------|
-| GET    | `/api/products`                                  | List all products                                            |
-| GET    | `/api/discounts`                                 | List all discounts                                           |
-| POST   | `/api/basket/optimize`                           | Optimize basket for the cheapest option in a single store    |
-| POST   | `/api/basket/optimize?allStores=true`            | Optimize basket for all stores, show best/winner store       |
-| POST   | `/api/basket/optimize-split`                     | Optimize split basket (can divide list across multiple       |
-|        |                                                  | stores for lowest total cost)                                |
-| GET    | `/api/discounts/best`                            | View products with the best (highest %) discounts overall    |
-|        |                                                  | or by date                                                   |
-| GET    | `/api/discounts/new`                             | View new discounts added in the last 24 hours                |
-| GET    | `/api/products/history?name=PRODUCT_NAME`        | View price history for a given product                       |
+| Method | Endpoint                                  | Description                                               |
+|--------|-------------------------------------------|-----------------------------------------------------------|
+| GET    | `/api/products`                           | List all products                                         |
+| GET    | `/api/products/history?name=PRODUCT_NAME` | View price history for a given product                    |
+| GET    | `/api/discounts`                          | List all discounts                                        |
+| POST   | `/api/basket/optimize`                    | Optimize basket for the cheapest option in a single store |
+| POST   | `/api/basket/optimize?allStores=true`     | Optimize basket for all stores, show best/winner store    |
+| POST   | `/api/basket/optimize-split`              | Optimize split basket (can divide list across multiple    |
+|        |                                           | stores for lowest total cost)                             |
+| GET    | `/api/discounts/best`                     | View products with the best (highest %) discounts overall |
+|        |                                           | or by date                                                |
+| GET    | `/api/discounts/new`                      | View new discounts added in the last 24 hours             |
+| GET    | `/api/alerts`                             | Get all price alerts                                      |
+| POST   | `/api/alerts`                             | Create a new price alert                                  |
+| PUT    | `/api/alerts{id}`                         | Edit/update a price alert                                 |
+| DELETE | `/api/alerts{id}`                         | Delete a price alert                                      |
+| GET    | `/api/alerts/triggered`                   | Get currently triggered price alerts                      |
+| POST   | `/api/admin/reload`                       | Reload the backend data from CSVs                         |
 
 ---
 
