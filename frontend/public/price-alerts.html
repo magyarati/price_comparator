@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Price Alerts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- React and ReactDOM via CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .border { border: 1px solid #ccc; }
+        .rounded { border-radius: 6px; }
+        .p-4 { padding: 1.5em; }
+        .mb-2 { margin-bottom: 0.5em; }
+        .mb-4 { margin-bottom: 1em; }
+        .mt-6 { margin-top: 2em; }
+        .w-full { width: 100%; }
+        .table-auto { table-layout: auto; }
+        .shadow { box-shadow: 0 2px 8px #0001; }
+        .block { display: block; }
+        .bg-green-500 { background: #16a34a; }
+        .text-white { color: #fff; }
+        .px-4 { padding-left: 1em; padding-right: 1em; }
+        .py-1 { padding-top: 0.25em; padding-bottom: 0.25em; }
+        #debug-log {
+            background: #111; color: #9f9; padding: 1em; margin-top: 2em;
+            font-size: 0.98em; max-height: 280px; overflow-y: auto;
+            border-radius: 6px; display: none;
+        }
+        #debug-log h3 { color: #fff; margin-top: 0; }
+        #debug-log pre { color: #7f7; margin: 0; }
+        #debug-toggle-btn {
+            margin-top: 20px; margin-bottom: -10px; background: #222;
+            color: #9f9; border: none; border-radius: 6px;
+            padding: 6px 18px; cursor:pointer; font-size: 1em;
+        }
+        #debug-toggle-btn:hover { background: #444; }
+        #debug-clear-btn {
+            margin-left: 1em; background: #400; color: #fff; border: none;
+            border-radius: 6px; padding: 6px 18px; cursor: pointer;
+            font-size: 1em; display: none;
+        }
+        #debug-clear-btn:hover { background: #800; }
+    </style>
+</head>
+<body>
+<button onclick="window.location.href='index.html'" style="margin-bottom:1em;">Home</button>
+<h1>Custom Price Alerts</h1>
+<p style="max-width:650px;"> Set up personalized price alerts for any product in any store! Simply enter your email, select a product, choose a store (or leave as "Any Store"), and specify your target price. The system will continuously monitor product prices, and whenever your chosen product drops to or below your target price, your alert will be triggered. You can view all your current alerts, edit or delete them, and see which alerts are triggered right now based on the latest available data.<br><br> <b>Note:</b> Email notifications are not sent automatically yet—alerts are shown here for manual review. Email notification support can be added in future updates. </p>
+<div id="root"></div>
+<!-- Debug UI Controls -->
+<button id="debug-toggle-btn">Show Debug Window</button>
+<button id="debug-clear-btn">Clear Debug</button>
+<div id="debug-log"><h3>Debug Window</h3></div>
+<script type="text/javascript">
+    const { useState, useEffect } = React;
+
+    function PriceAlertForm({ products, onAlertAdded, initial, onCancel, logDebug }) {
+      const [email, setEmail] = useState(initial?.email || '');
+      const [productName, setProductName] = useState(initial?.productName || '');
+      const [store, setStore] = useState(initial?.store || '');
+      const [targetPrice, setTargetPrice] = useState(initial?.targetPrice ?? '');
+
+      const productNames = Array.from(new Set(products.map(p => p.name))).sort();
+      const storeNames = Array.from(new Set(products.map(p => p.store))).sort();
+
+      function handleSubmit(e) {
+        e.preventDefault();
+        if (!email || !productName || !targetPrice) {
+          alert("Please enter email, product, and target price");
+          return;
+        }
+        const alertData = {
+          email, productName, store: store || null, targetPrice: parseFloat(targetPrice)
+        };
+        if (initial && initial.id) {
+          logDebug("PUT /api/alerts/" + initial.id, alertData);
+          axios.put(`/api/alerts/${initial.id}`, alertData)
+            .then(res => {
+              logDebug("PUT Response", res.data);
+              alert("Alert updated!");
+              onAlertAdded();
+              if (onCancel) onCancel();
+            })
+            .catch(e => {
+              logDebug("PUT Error", String(e));
+              alert("Error updating alert.");
+            });
+        } else {
+          logDebug("POST /api/alerts", alertData);
+          axios.post('/api/alerts', alertData)
+            .then(res => {
+              logDebug("POST Response", res.data);
+              alert('Alert set!');
+              setTargetPrice('');
+              onAlertAdded();
+            })
+            .catch(e => {
+              logDebug("POST Error", String(e));
+              alert('Error setting alert.');
+            });
+        }
+      }
+
+      return React.createElement('form', { onSubmit: handleSubmit, className: 'border p-4 rounded shadow', style: { maxWidth: 400, marginBottom: 24 } },
+        React.createElement('h3', { className: 'mb-2' }, initial ? "Edit Price Alert" : "Set Price Alert"),
+        React.createElement('input', {
+          type: "email", placeholder: "Your Email",
+          className: "border p-1 rounded mb-2 block w-full",
+          value: email, onChange: e => setEmail(e.target.value), required: true
+        }),
+        React.createElement('select', {
+          value: productName, onChange: e => setProductName(e.target.value),
+          className: "border p-1 rounded mb-2 block w-full", required: true
+        },
+          React.createElement('option', { value: "" }, "Select product"),
+          productNames.map(name => React.createElement('option', { key: name, value: name }, name))
+        ),
+        React.createElement('select', {
+          value: store, onChange: e => setStore(e.target.value),
+          className: "border p-1 rounded mb-2 block w-full"
+        },
+          React.createElement('option', { value: "" }, "Any Store"),
+          storeNames.map(s => React.createElement('option', { key: s, value: s }, s))
+        ),
+        React.createElement('input', {
+          type: "number", step: "0.01", min: "0",
+          placeholder: "Target Price",
+          className: "border p-1 rounded mb-2 block w-full",
+          value: targetPrice, onChange: e => setTargetPrice(e.target.value), required: true
+        }),
+        React.createElement('button', {
+          type: "submit",
+          className: "bg-green-500 text-white px-4 py-1 rounded"
+        }, initial ? "Update Alert" : "Set Alert"),
+        initial && React.createElement('button', {
+          type: "button",
+          style: { marginLeft: 16 },
+          onClick: onCancel,
+          className: "px-4 py-1 rounded border"
+        }, "Cancel")
+      );
+    }
+
+    function PriceAlertsApp() {
+      const [products, setProducts] = useState([]);
+      const [alerts, setAlerts] = useState([]);
+      const [triggered, setTriggered] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [editing, setEditing] = useState(null); // id of alert being edited
+
+      // Debug state
+      const [debugLog, setDebugLog] = useState([]);
+      const [debugVisible, setDebugVisible] = useState(false);
+
+      function logDebug(title, obj) {
+        setDebugLog(prev => {
+          const entry = { title, obj, time: new Date().toLocaleTimeString() };
+          const next = [...prev, entry];
+          return next.length > 8 ? next.slice(-8) : next;
+        });
+      }
+      function toggleDebugLog() {
+        setDebugVisible(vis => {
+          setTimeout(() => {
+            document.getElementById('debug-log').style.display = !vis ? 'block' : 'none';
+            document.getElementById('debug-toggle-btn').textContent = !vis ? "Hide Debug Window" : "Show Debug Window";
+            document.getElementById('debug-clear-btn').style.display = !vis ? "inline-block" : "none";
+          }, 10);
+          return !vis;
+        });
+      }
+      function clearDebugLog() { setDebugLog([]); }
+
+      function reloadAll() {
+        setLoading(true);
+        logDebug("GET /api/products", null);
+        axios.get('/api/products').then(res => {
+          setProducts(res.data);
+          logDebug("Products Loaded", res.data);
+        });
+        logDebug("GET /api/alerts", null);
+        axios.get('/api/alerts').then(res => {
+          setAlerts(res.data);
+          logDebug("Alerts Loaded", res.data);
+        });
+        logDebug("GET /api/alerts/triggered", null);
+        axios.get('/api/alerts/triggered').then(res => {
+          setTriggered(res.data);
+          logDebug("Triggered Loaded", res.data);
+        })
+        .finally(() => setLoading(false));
+        setEditing(null); // reset edit state
+      }
+
+      useEffect(() => { reloadAll(); }, []);
+
+      function handleDelete(id) {
+        if (!window.confirm("Delete this alert?")) return;
+        logDebug("DELETE /api/alerts/" + id, null);
+        axios.delete(`/api/alerts/${id}`)
+          .then(res => {
+            logDebug("Delete Response", res.data);
+            reloadAll();
+          })
+          .catch(e => logDebug("Delete Error", String(e)));
+      }
+
+      function handleEdit(alert) { setEditing(alert); }
+      function handleEditCancel() { setEditing(null); }
+
+      // Attach buttons after mount
+      useEffect(() => {
+        document.getElementById('debug-toggle-btn').onclick = toggleDebugLog;
+        document.getElementById('debug-clear-btn').onclick = clearDebugLog;
+      });
+
+      function renderDebugLog() {
+        return (
+          React.createElement('div', { id: "debug-log", style: { display: debugVisible ? 'block' : 'none' } },
+            React.createElement('h3', null, "Debug Window"),
+            debugLog.map((entry, i) =>
+              React.createElement('div', { key: i },
+                React.createElement('b', null, `[${entry.time}] ${entry.title}`),
+                React.createElement('pre', null, JSON.stringify(entry.obj, null, 2))
+              )
+            )
+          )
+        );
+      }
+
+      return (
+        React.createElement('div', { className: "p-4" },
+          React.createElement(PriceAlertForm, {
+            products, onAlertAdded: reloadAll, initial: editing,
+            onCancel: handleEditCancel, logDebug
+          }),
+          React.createElement('h3', { className: 'mt-6 mb-2 font-bold' }, "Your Alerts"),
+          React.createElement('table', { className: "w-full table-auto border-collapse mb-6" },
+            React.createElement('thead', null,
+              React.createElement('tr', null,
+                React.createElement('th', { className: "border p-2" }, "ID"),
+                React.createElement('th', { className: "border p-2" }, "Email"),
+                React.createElement('th', { className: "border p-2" }, "Product"),
+                React.createElement('th', { className: "border p-2" }, "Store"),
+                React.createElement('th', { className: "border p-2" }, "Target Price"),
+                React.createElement('th', { className: "border p-2" }, "Actions")
+              )
+            ),
+            React.createElement('tbody', null,
+              alerts.map((a, i) =>
+                React.createElement('tr', { key: a.id || i },
+                  React.createElement('td', { className: "border p-1" }, a.id ?? '-'),
+                  React.createElement('td', { className: "border p-1" }, a.email),
+                  React.createElement('td', { className: "border p-1" }, a.productName),
+                  React.createElement('td', { className: "border p-1" }, a.store || 'Any'),
+                  React.createElement('td', { className: "border p-1" }, a.targetPrice),
+                  React.createElement('td', { className: "border p-1" },
+                    React.createElement('button', {
+                      style: { marginRight: 8 },
+                      className: "px-2 py-1 rounded border",
+                      onClick: () => handleEdit(a)
+                    }, "Edit"),
+                    React.createElement('button', {
+                      className: "px-2 py-1 rounded border",
+                      onClick: () => handleDelete(a.id)
+                    }, "Delete")
+                  )
+                )
+              )
+            )
+          ),
+          React.createElement('h3', { className: 'mt-6 mb-2 font-bold' }, "Alerts Triggered Now"),
+          loading ?
+            React.createElement('div', null, "Loading...") :
+            React.createElement('table', { className: "w-full table-auto border-collapse" },
+              React.createElement('thead', null,
+                React.createElement('tr', null,
+                  React.createElement('th', { className: "border p-2" }, "ID"),
+                  React.createElement('th', { className: "border p-2" }, "Email"),
+                  React.createElement('th', { className: "border p-2" }, "Product"),
+                  React.createElement('th', { className: "border p-2" }, "Store"),
+                  React.createElement('th', { className: "border p-2" }, "Target Price")
+                )
+              ),
+              React.createElement('tbody', null,
+                triggered.length === 0 ?
+                  React.createElement('tr', null,
+                    React.createElement('td', { className: "border p-1", colSpan: 5, style: { textAlign: 'center' } }, "No alerts triggered now.")
+                  ) :
+                  triggered.map((a, i) =>
+                    React.createElement('tr', { key: a.id || i },
+                      React.createElement('td', { className: "border p-1" }, a.id ?? '-'),
+                      React.createElement('td', { className: "border p-1" }, a.email),
+                      React.createElement('td', { className: "border p-1" }, a.productName),
+                      React.createElement('td', { className: "border p-1" }, a.store || 'Any'),
+                      React.createElement('td', { className: "border p-1" }, a.targetPrice)
+                    )
+                  )
+              )
+            ),
+          // Debug window render
+          renderDebugLog()
+        )
+      );
+    }
+
+    // Mount the React app
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(PriceAlertsApp));
+</script>
+</body>
+</html>
